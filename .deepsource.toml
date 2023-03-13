@@ -17,3 +17,16 @@ name = "python"
 
 [[transformers]]
 name = "black"
+
+[[analyzers]]
+name = "javascript"
+
+  [analyzers.meta]
+  module_system = "amd"
+  environment = [
+    "jquery",
+    "browser"
+  ]
+
+[[transformers]]
+name = "prettier"
