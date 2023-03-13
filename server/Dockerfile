@@ -2,7 +2,7 @@ FROM ghcr.io/masami10/odoo_crack_docker/oneshare_odoo:14
 
 USER root
 
-LABEL org.opencontainers.image.source=https://github.com/masami10/onesphere
+LABEL org.opencontainers.image.source=https://github.com/ethermeta-org/onesphere
 
 #onesphere addons requirements
 COPY ./requirements.txt /
