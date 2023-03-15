@@ -146,6 +146,7 @@ if __name__ == "__main__":
         measurement_final_angle = data["measure_angle"][index]
         tightening_point_name = f"{data['nut_no'][index]}-1"
         tightening_point_name = tightening_point_name.replace("OP340-", "OP340_")
+        tightening_point_name = tightening_point_name.replace("-0-0", "-1-1")
         tightening_result = data["measure_result"][index].lower()
         error_code = random.choice(error_codes) if tightening_result == "nok" else ""
         tightening_strategy = random.choice(["AD", "AW"])
@@ -158,17 +159,17 @@ if __name__ == "__main__":
             datetime.strptime(control_time, DEFAULT_SERVER_DATETIME_FORMAT).timestamp()
         )
         if tightening_point_name in (
-            "OP340_8-0-0-1",
-            "OP940-0-0-1",
-            "OP340_6-0-0-1",
-            "OP800-0-0-1",
+            "OP340_8-1-1-1",
+            "OP940-1-1-1",
+            "OP340_6-1-1-1",
+            "OP800-1-1-1",
         ):
             angle_max, angle_min, angle_target = 100, 0, 50
-        elif tightening_point_name in ("OP1000-0-0-1", "OP1050-0-0-1"):
+        elif tightening_point_name in ("OP1000-1-1-1", "OP1050-1-1-1"):
             angle_max, angle_min, angle_target = 200, 0, 100
-        elif tightening_point_name == "H170-0-0-1":
+        elif tightening_point_name == "H170-1-1-1":
             angle_max, angle_min, angle_target = 1000, 0, 500
-        elif tightening_point_name == "OP1470-0-0-1":
+        elif tightening_point_name == "OP1470-1-1-1":
             angle_max, angle_min, angle_target = 800, 0, 400
         else:
             angle_max = data["angle_max"][index]
