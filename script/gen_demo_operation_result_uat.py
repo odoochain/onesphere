@@ -80,6 +80,7 @@ RECORD_TMPL = Template(
             <field name="workcenter_code">{{ workcenter_code }}</field>
             <field name="cap_features_save">{{ cap_features_save }}</field>
             <field name="cap_snug_features_save">{{ cap_snug_features_save }}</field>
+            <field name="analysis_result_state">{{ analysis_result_state }}</field>
         </record>
 """
 )
@@ -90,10 +91,10 @@ def gen_record_msg(*args, **kwargs):
     return r
 
 
-def get_step_result(step_results):
-    step_results = json.loads(step_results)
+def get_step_result(results_str):
+    results = json.loads(results_str)
     step_result_list = []
-    for result in step_results:
+    for result in results:
         step_result_list.append(
             {
                 "measure_torque": round(result.get("measure_torque"), 2),
@@ -104,32 +105,32 @@ def get_step_result(step_results):
 
 
 def get_feature_df():
-    feature_df = False
-    for f in glob.glob(FEATURES_PATH):
-        feature_df_item = pd.read_excel(f)
-        if feature_df is not False:
-            feature_df = pd.concat([feature_df, feature_df_item], ignore_index=True)
+    feature = False
+    for file in glob.glob(FEATURES_PATH):
+        feature_df_item = pd.read_excel(file)
+        if feature is not False:
+            feature = pd.concat([feature, feature_df_item], ignore_index=True)
         else:
-            feature_df = feature_df_item
-    feature_df.set_index("曲线唯一标识", inplace=True)
-    feature_df.drop("人为识别拧紧结果", axis="columns", inplace=True)
-    feature_df.rename(columns=TIGHTENING_FEATURES, inplace=True)
-    return feature_df
+            feature = feature_df_item
+    feature.set_index("曲线唯一标识", inplace=True)
+    feature.drop("人为识别拧紧结果", axis="columns", inplace=True)
+    feature.rename(columns=TIGHTENING_FEATURES, inplace=True)
+    return feature
 
 
-def get_feature_json(entity_id):
-    feature_json, snug_data = "", ""
+def get_feature_json(entity):
+    feature, snug = "", ""
     try:
-        feature_item = json.loads(feature_df.loc[entity_id].to_json())
+        feature_item = json.loads(feature_df.loc[entity].to_json())
         feature_item.update(
             {"step_results": len(json.loads(feature_item.get("step_results")))}
         )
-        snug_data = feature_item.pop("snug_data", "")
+        snug = feature_item.pop("snug_data", "")
         feature_dic = {data["entity_id"][index]: feature_item}
-        feature_json = json.dumps(feature_dic, indent=4)
+        feature = json.dumps(feature_dic, indent=4)
     except Exception as e:
         _logger.error(f"get feature json failed: {ustr(e)}")
-    return feature_json, snug_data
+    return feature, snug
 
 
 if __name__ == "__main__":
@@ -143,7 +144,8 @@ if __name__ == "__main__":
         tightening_process_no = data["pset"][index]
         measurement_final_torque = data["measure_torque"][index]
         measurement_final_angle = data["measure_angle"][index]
-        tightening_point_name = data["nut_no"][index]
+        tightening_point_name = f"{data['nut_no'][index]}-1"
+        tightening_point_name = tightening_point_name.replace("OP340-", "OP340_")
         tightening_result = data["measure_result"][index].lower()
         error_code = random.choice(error_codes) if tightening_result == "nok" else ""
         tightening_strategy = random.choice(["AD", "AW"])
@@ -155,16 +157,33 @@ if __name__ == "__main__":
         control_timestamp = int(
             datetime.strptime(control_time, DEFAULT_SERVER_DATETIME_FORMAT).timestamp()
         )
+        if tightening_point_name in (
+            "OP340_8-0-0-1",
+            "OP940-0-0-1",
+            "OP340_6-0-0-1",
+            "OP800-0-0-1",
+        ):
+            angle_max, angle_min, angle_target = 100, 0, 50
+        elif tightening_point_name in ("OP1000-0-0-1", "OP1050-0-0-1"):
+            angle_max, angle_min, angle_target = 200, 0, 100
+        elif tightening_point_name == "H170-0-0-1":
+            angle_max, angle_min, angle_target = 1000, 0, 500
+        elif tightening_point_name == "OP1470-0-0-1":
+            angle_max, angle_min, angle_target = 800, 0, 400
+        else:
+            angle_max = data["angle_max"][index]
+            angle_min = data["angle_min"][index]
+            angle_target = data["angle_target"][index]
         entity_id = f"{track_no}_{data['tool_sn'][index]}_{control_timestamp}_{index}"
         tightening_id = data["tightening_id"][index]
         curve = f"{data['entity_id'][index].split('/')[-1]}.json"
         curve_file = '[{"file":"%s","op":1}]' % curve
-        angle_max = data["angle_max"][index]
-        angle_min = data["angle_min"][index]
-        angle_target = data["angle_target"][index]
         torque_max = data["torque_max"][index]
         torque_min = data["torque_min"][index]
         torque_target = data["torque_target"][index]
+        analysis_result_state = "ok" if tightening_result == "ok" else "nok"
+        if curve in ("1644116132.json", "1644114233.json"):
+            analysis_result_state = "nok"
         step_results = json.dumps(get_step_result(data["step_results"][index]))
         workcenter_code = random.choice(station_names)
         attribute_equipment_no = random.choice(attribute_equipments)
@@ -194,6 +213,7 @@ if __name__ == "__main__":
             attribute_equipment_no=attribute_equipment_no,
             cap_features_save=feature_json,
             cap_snug_features_save=snug_data,
+            analysis_result_state=analysis_result_state,
         )
         rec_str.append(m)
     ss = G_TMPL.render(items=rec_str)
