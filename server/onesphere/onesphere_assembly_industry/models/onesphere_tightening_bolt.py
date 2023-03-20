@@ -57,9 +57,11 @@ class OnesphereTighteningBolt(models.Model):
         self.ensure_one()
         query_type = "angle"
         icp = self.env["ir.config_parameter"].sudo()
-        tightening_process_proposal_duration = icp.get_param(
-            "oneshare.tightening.process.proposal.duration",
-            ENV_PROCESS_PROPOSAL_DURATION,
+        tightening_process_proposal_duration = int(
+            icp.get_param(
+                "oneshare.tightening.process.proposal.duration",
+                ENV_PROCESS_PROPOSAL_DURATION,
+            )
         )  # 建议计算间隔天数
         results_obj = self.env["onesphere.tightening.result"]
         query_date_from = fields.Datetime.today() - relativedelta(
