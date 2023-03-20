@@ -170,8 +170,9 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
 
         return ret
 
+    @staticmethod
     def _compute_dist_js(
-        self, data_list: List[float], usl: float, lsl: float, spc_step: float
+        data_list: List[float], usl: float, lsl: float, spc_step: float
     ):
         histogram_data = histogram(data_list, usl, lsl, spc_step)
         normal_data = normal(data_list, usl, lsl, spc_step)
@@ -186,7 +187,8 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
             y_normal_data.append(round(normal_data[ARRAY_Y][i] * 100, 2))
         return x_axis_data, y_histogram_data, y_normal_data, histogram_data[EFF_LENGTH]
 
-    def _compute_weill_dist_js(self, nok_data_list: List[float]):
+    @staticmethod
+    def _compute_weill_dist_js(nok_data_list: List[float]):
         # floc, fscale = exponweib.fit_loc_scale(nok_data_list)
         data_len = len(nok_data_list)
         a, c, loc, scale = exponweib.fit(nok_data_list)
