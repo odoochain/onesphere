@@ -1144,8 +1144,8 @@ msgstr "失败结果统计分析"
 
 #. module: onesphere_assembly_industry
 #: model:ir.ui.menu,name:onesphere_assembly_industry.onesphere_tightening_result_spc_analysis
-msgid "Statistical Process Control(SPC)"
-msgstr "质量过程控制(SPC)"
+msgid "Statistical Process Control"
+msgstr "质量过程控制"
 
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_view_form

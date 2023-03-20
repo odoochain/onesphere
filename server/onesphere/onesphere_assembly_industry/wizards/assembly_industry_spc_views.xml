@@ -2,7 +2,7 @@
     <data>
         <menuitem
                 id="onesphere_tightening_result_spc_analysis"
-                name="Statistical Process Control(SPC)"
+                name="Statistical Process Control"
                 parent="onesphere_spc.onesphere_spc_root"
                 groups="mrp.group_mrp_user"
                 sequence="20"/>
