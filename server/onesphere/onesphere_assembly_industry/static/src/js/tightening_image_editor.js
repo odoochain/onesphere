@@ -182,7 +182,7 @@ odoo.define('oneshare.tightening_image_editor', function (require) {
         MarkerDragstop: function (event) {
             event.stopPropagation();
             var self = this;
-            var idx = parseInt(event.target.textContent) - 1;
+            var idx = parseInt(event.target.textContent, 10) - 1;
             var imgWidth = parseFloat(this.$el.find('#img').css('width'));
             var imgHeight = parseFloat(this.$el.find('#img').css('height'));
             var circleWidth = 20;
