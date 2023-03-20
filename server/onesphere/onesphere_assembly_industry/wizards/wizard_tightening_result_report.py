@@ -187,7 +187,7 @@ class WizardTighteningResultReport(models.TransientModel):
         self._cr.execute(sql2)
         last_results = self._cr.fetchall()
         final_result = (
-            "ok" if all([result == ("ok",) for result in last_results]) else "nok"
+            "ok" if all(result[0] == "ok" for result in last_results) else "nok"
         )
         return results, final_result
 
