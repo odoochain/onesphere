@@ -9,6 +9,8 @@ from boltons.cacheutils import LRU
 from odoo import _
 from odoo.tools import ustr
 
+from odoo.addons.onesphere_wave.constants import EXCEL_TYPE
+
 _wave_cache = LRU(max_size=128)
 
 logger = logging.getLogger(__name__)
@@ -38,7 +40,7 @@ except ImportError:
 class OperationResult(HModel):
     _inherit = "onesphere.tightening.result"
 
-    def download_tightening_results(self):
+    def download_tightening_results(self, file_type=EXCEL_TYPE):
         records = self
         ICP = self.env["ir.config_parameter"].sudo()
         download_tightening_results_limit = int(
@@ -55,7 +57,7 @@ class OperationResult(HModel):
         _ids = ",".join([str(_id) for _id in records.ids])
         return {
             "type": "ir.actions.act_url",
-            "url": f"/oneshare/assembly/tightening/download?ids={_ids}",
+            "url": f"/oneshare/assembly/tightening/download?ids={_ids}&file_type={file_type}",
             "target": "self",
         }
 

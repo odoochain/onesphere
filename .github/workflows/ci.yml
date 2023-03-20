@@ -31,7 +31,7 @@ jobs:
       - name: build image
         run: |
           cd ./server
-          docker build --tag "ghcr.io/masami10/onesphere/onesphere:14" --no-cache=true .
+          docker build --tag "ghcr.io/ethermeta-org/onesphere:14" --no-cache=true .
       - name: publish github docker registry
         run: |
-          docker push ghcr.io/masami10/onesphere/onesphere:14
+          docker push ghcr.io/ethermeta-org/onesphere:14

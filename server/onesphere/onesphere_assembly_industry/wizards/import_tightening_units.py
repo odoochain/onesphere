@@ -58,7 +58,7 @@ class ImportTighteningUnit(models.TransientModel):
                 self.env.cr.commit()
             except Exception as e:
                 self.env.cr.rollback()
-                _logger.error(_(f"Create Tightening Unit Failed,Reason: %s") % ustr(e))
+                _logger.error(_(f"Create Tightening Unit Failed,Reason: %s"), ustr(e))
                 self.env.user.notify_warning(
                     _(f"%s") % ustr(e),
                     title=_(f"Create Tightening Unit Failed:"),

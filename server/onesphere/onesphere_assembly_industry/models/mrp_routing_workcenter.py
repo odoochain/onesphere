@@ -255,7 +255,8 @@ class MrpRoutingWorkcenter(models.Model):
                     _(f"Push Operation Failure, Error Message:{ret.text}")
                 )
 
-    def _send_val_by_thread(self, val, url):
+    @staticmethod
+    def _send_val_by_thread(val, url):
         # 异步发送包好的数据
         _logger.debug("Push Operation： {}".format(pprint.pformat(val, indent=4)))
         ret = Requests.put(
