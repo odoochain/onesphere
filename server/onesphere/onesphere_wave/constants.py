@@ -1,5 +1,7 @@
 # -*- encoding: utf-8 -*-
 
+import os
+
 # 拧紧结果颜色
 OK_BG_COLOR = "#C8E6C9"
 OK_COLOR = "#256029"
@@ -10,3 +12,11 @@ OTHER_BG_COLOR = "#D3D1D1"
 # 下载结果文件类型
 CSV_TYPE = "csv"
 EXCEL_TYPE = "excel"
+
+ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE = os.getenv(
+    "ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE", "utf-8"
+)
+
+ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT = int(
+    os.getenv("ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT", "1000")
+)

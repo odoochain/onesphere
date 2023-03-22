@@ -23,12 +23,11 @@ from odoo.addons.onesphere_wave.constants import (
     OTHER_BG_COLOR,
     CSV_TYPE,
     EXCEL_TYPE,
+    ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE,
+    ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT
 )
 
 _logger = logging.getLogger(__name__)
-ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE = os.getenv(
-    "ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE", "utf-8"
-)
 
 
 def style_apply(v):
@@ -47,6 +46,15 @@ def get_temp_file_from_result(env, result_ids, platform="", file_type=EXCEL_TYPE
         "onesphere_wave.download_tightening_results_encode",
         default=ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE,
     )
+    download_tightening_results_limit = int(
+        ICP.get_param(
+            "onesphere_wave.download_tightening_results_limit",
+            default=ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT,
+        )
+    )
+    if len(result_ids) > download_tightening_results_limit:
+        raise ValidationError(
+            f"曲线导出功能限制前{download_tightening_results_limit}条数据，将自动截取.或通过设置放大onesphere_wave.download_tightening_results_limit参数")
     if platform and platform.upper() == "WINDOWS":
         download_tightening_results_encode = "gbk"  # GBK
     result_list, curve_file_list, entity_id_list = [], [], []
@@ -163,7 +171,7 @@ class OnesphereTighteningResultController(http.Controller):
     def download_tightening_results(self, *args, **kwargs):
         platform = request.httprequest.user_agent.platform
         record_ids_list = request.params.get("ids", "").split(",")
-        file_type = request.params.get("file_type", "")
+        file_type = request.params.get("file_type", EXCEL_TYPE)
         record_ids = [int(id) for id in record_ids_list]
         result_ids = request.env["onesphere.tightening.result"].search(
             [("id", "in", record_ids)]

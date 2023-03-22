@@ -9,15 +9,11 @@ from boltons.cacheutils import LRU
 from odoo import _
 from odoo.tools import ustr
 
-from odoo.addons.onesphere_wave.constants import EXCEL_TYPE
+from odoo.addons.onesphere_wave.constants import EXCEL_TYPE, ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT
 
 _wave_cache = LRU(max_size=128)
 
 logger = logging.getLogger(__name__)
-
-ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT = int(
-    os.getenv("ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT", "1000")
-)
 
 
 def _create_wave_result_dict(x, data):

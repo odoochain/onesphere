@@ -4,15 +4,12 @@ import logging
 import os
 
 from odoo import fields, models
+from odoo.addons.onesphere_wave.constants import (
+    ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE,
+    ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT
+)
 
 _logger = logging.getLogger(__name__)
-
-ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT = int(
-    os.getenv("ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT", "1000")
-)
-ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE = os.getenv(
-    "ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE", "utf-8"
-)
 
 
 class ResConfigSettings(models.TransientModel):
