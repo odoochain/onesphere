@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import uuid
 from typing import List
 
 from odoo.addons.onesphere_spc.utils.lexen_spc.chart import xbar_rbar, covert2dArray
@@ -117,7 +118,7 @@ def get_xr_spc_echarts_options(data=None, query_type="torque", description="", s
                             "formatter": "{b}\n{c}",
                         },
                         "yAxis": data.get("upper", "dataMax") * 2 / 3
-                        + data.get("center") / 3,
+                                 + data.get("center") / 3,
                         "lineStyle": {
                             "type": "dashed",  # 目标值虚线，其他值实线
                             "width": 1,
@@ -133,7 +134,7 @@ def get_xr_spc_echarts_options(data=None, query_type="torque", description="", s
                             "formatter": "{b}\n{c}",
                         },
                         "yAxis": data.get("upper", "dataMax") / 3
-                        + data.get("center") * 2 / 3,
+                                 + data.get("center") * 2 / 3,
                         "lineStyle": {
                             "type": "dashed",  # 目标值虚线，其他值实线
                             "width": 1,
@@ -195,11 +196,34 @@ def get_xr_spc_echarts_options(data=None, query_type="torque", description="", s
         "xAxis": xAxisOptions,
         "yAxis": yAxisOptions,
         "series": seriesOptions,
+        "toolbox": {
+            "top": '3%',
+            "right": '1%',
+            "show": True,
+            "feature": {
+                "saveAsImage": {
+                    "name": uuid.uuid4().hex,
+                    "title": '保存图片',
+                    "show": True
+                },
+                "dataZoom": {
+                    "title": {
+                        "zoom": '区域缩放',
+                        "back": '区域缩放还原'
+                    },
+                    "brushStyle": {
+                        "borderWidth": 1,
+                        "color": 'rgba(139,252,174,0.2)',
+                        "borderColor": 'rgba(126,180,120,0.8)'
+                    }
+                }
+            }
+        },
     }
 
 
 def get_heap_map_echarts_options(
-    data=None, tooltip_name="", description="", dimension=2
+        data=None, tooltip_name="", description="", dimension=2
 ):
     if data is None:
         data = {}
@@ -248,7 +272,7 @@ def get_heap_map_echarts_options(
 
 
 def get_dist_echarts_options(
-    data=None, query_type="torque", description="", type="norm"
+        data=None, query_type="torque", description="", type="norm"
 ):
     """生成正态分布需要的序列
     Args:
