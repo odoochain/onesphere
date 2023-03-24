@@ -24,7 +24,7 @@ from odoo.addons.onesphere_wave.constants import (
     CSV_TYPE,
     EXCEL_TYPE,
     ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE,
-    ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT
+    ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT,
 )
 
 _logger = logging.getLogger(__name__)
@@ -54,7 +54,8 @@ def get_temp_file_from_result(env, result_ids, platform="", file_type=EXCEL_TYPE
     )
     if len(result_ids) > download_tightening_results_limit:
         raise ValidationError(
-            f"曲线导出功能限制前{download_tightening_results_limit}条数据，将自动截取.或通过设置放大onesphere_wave.download_tightening_results_limit参数")
+            f"曲线导出功能限制前{download_tightening_results_limit}条数据，将自动截取.或通过设置放大onesphere_wave.download_tightening_results_limit参数"
+        )
     if platform and platform.upper() == "WINDOWS":
         download_tightening_results_encode = "gbk"  # GBK
     result_list, curve_file_list, entity_id_list = [], [], []

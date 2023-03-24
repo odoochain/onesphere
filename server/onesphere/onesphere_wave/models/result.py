@@ -9,7 +9,10 @@ from boltons.cacheutils import LRU
 from odoo import _
 from odoo.tools import ustr
 
-from odoo.addons.onesphere_wave.constants import EXCEL_TYPE, ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT
+from odoo.addons.onesphere_wave.constants import (
+    EXCEL_TYPE,
+    ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT,
+)
 
 _wave_cache = LRU(max_size=128)
 

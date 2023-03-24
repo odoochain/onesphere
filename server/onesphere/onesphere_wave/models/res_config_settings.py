@@ -6,7 +6,7 @@ import os
 from odoo import fields, models
 from odoo.addons.onesphere_wave.constants import (
     ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE,
-    ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT
+    ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT,
 )
 
 _logger = logging.getLogger(__name__)
