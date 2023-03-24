@@ -13,6 +13,7 @@ from odoo.addons.onesphere_assembly_industry.constants import (
 import os
 import logging
 import pyexcel
+import filetype
 
 _logger = logging.getLogger(__name__)
 
@@ -48,6 +49,13 @@ class ImportTighteningUnit(models.TransientModel):
         if not self.file:
             raise ValidationError(_("Please Upload A File!"))
         excel_file = base64.b64decode(self.file)
+        excel_file_type = filetype.guess_extension(excel_file)
+        if excel_file_type != self.file_type:
+            raise ValidationError(
+                _(
+                    f"Please ensure that the extracted file type is the same as the type you selected: {self.file_type}"
+                )
+            )
         book = pyexcel.get_book(file_type=self.file_type, file_content=excel_file)
         for sheet in book:
             if len(sheet) <= FIRST_DATA_ROW:

@@ -10,4 +10,4 @@ class OnesphereImportMixin(models.AbstractModel):
     file_type = fields.Selection(
         [("xls", "XLS File"), ("xlsx", "XLSX File")], string="File Type", default="xlsx"
     )
-    file = fields.Binary(string="Upload Zip File", attachment=False)
+    file = fields.Binary(string="Upload File", attachment=False)

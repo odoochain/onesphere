@@ -16,6 +16,8 @@ import binascii
 import pyexcel
 import tempfile
 import zipfile
+import filetype
+import mimetypes
 
 _logger = logging.getLogger(__name__)
 
@@ -215,6 +217,9 @@ class ImportOperation(models.TransientModel):
         file_content = binascii.a2b_base64(self.file)
         temp_file = tempfile.TemporaryFile()
         temp_file.write(file_content)
+        upload_file_type = filetype.guess_extension(file_content)
+        if upload_file_type != "zip":
+            raise ValidationError(_("Please upload zip file"))
         with zipfile.ZipFile(temp_file, "r") as zfp:
             img_list = []
             for filename in zfp.namelist():
@@ -231,6 +236,13 @@ class ImportOperation(models.TransientModel):
         if not self.file:
             raise ValidationError(_("Please Upload A File!"))
         excel_file, img_list = self.read_zipfile()
+        excel_file_type = filetype.guess_extension(excel_file)
+        if excel_file_type != self.file_type:
+            raise ValidationError(
+                _(
+                    f"Please ensure that the extracted file type is the same as the type you selected: {self.file_type}"
+                )
+            )
         book = pyexcel.get_book(file_type=self.file_type, file_content=excel_file)
         for sheet in book:
             if len(sheet) <= FIRST_DATA_ROW:
