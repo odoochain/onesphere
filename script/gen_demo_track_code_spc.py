@@ -20,7 +20,7 @@ G_TMPL = Template(
         {% endfor %}
         </data>
 </odoo>
-"""
+""", autoescape=True
 )
 
 RECORD_TMPL = Template(
@@ -28,7 +28,7 @@ RECORD_TMPL = Template(
         <record id="track_code_{{ id }}" model="oneshare.track.code">
             <field name="track_code">{{ track_no }}</field>
         </record>
-"""
+""", autoescape=True
 )
 
 

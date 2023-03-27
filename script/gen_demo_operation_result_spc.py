@@ -24,7 +24,7 @@ G_TMPL = Template(
         {% endfor %}
         </data>
 </odoo>
-"""
+""", autoescape=True
 )
 
 RECORD_TMPL = Template(
@@ -43,7 +43,7 @@ RECORD_TMPL = Template(
             <field name="control_time" eval="(DateTime.today() - relativedelta(days={{ delta_day }})).strftime('%Y-%m-%d %H:%M')"/>
             <field name="tightening_id">{{ tightening_id }}</field>
         </record>
-"""
+""", autoescape=True
 )
 
 
