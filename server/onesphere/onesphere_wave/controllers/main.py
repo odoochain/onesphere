@@ -34,7 +34,7 @@ ENV_BACKUP_WITH_MINIO = strtobool(os.getenv("ENV_BACKUP_WITH_MINIO", "False"))
 try:
     client = docker.DockerClient(base_url=ENV_DOCKER_URL)
 except Exception as e:
-    _logger.error(f"初始化docker客户端错误: {ustr(e)}")
+    _logger.error("初始化docker客户端错误: %s", ustr(e))
     client = None
 
 CONTAINER_STOP_TIMEOUT = 20
@@ -67,7 +67,7 @@ def restore_minio_data(zip_fn):
                     command="""bash -c "cd /data && tar xvf /backup/backup.tar --strip 1" """,
                 )
                 exit_status = c.wait()["StatusCode"]
-                _logger.info(f"容器返回值: {exit_status}")
+                _logger.info("容器返回值: %s", exit_status)
                 c.remove()
                 minio_container.start()
 
@@ -75,7 +75,7 @@ def restore_minio_data(zip_fn):
 def backup_minio_data(stream):
     minio_container = None
     if not client:
-        _logger.error(f"请先初始化docker客户端")
+        _logger.error("请先初始化docker客户端")
         return
     containers = client.containers.list(filters={"status": "running"})
     for container in containers:
@@ -83,7 +83,7 @@ def backup_minio_data(stream):
         if "minio" in image_name:
             minio_container = container
             break
-        _logger.info(f"{image_name}")
+        _logger.info("%s", image_name)
     if not minio_container:
         return
     with tempfile.TemporaryDirectory() as tmp_dir:
@@ -97,11 +97,11 @@ def backup_minio_data(stream):
                 command="tar cvf /backup/backup.tar /data",
             )
             exit_status = c.wait()["StatusCode"]
-            _logger.info(f"容器返回值: {exit_status}")
+            _logger.info("容器返回值: %s", exit_status)
             c.remove()
             minio_container.start()
         except Exception as e:
-            _logger.error(f"{ustr(e)}")
+            _logger.error("%s", ustr(e))
             return
         zip_dir(
             tmp_dir,

@@ -90,7 +90,7 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
     ):
         if others is None:
             others = {}
-        _logger.debug(f"query spc, params: {args}, {kwargs}")
+        _logger.debug("query spc, params: %s, %s", args, kwargs)
         query_date_from = fields.Datetime.from_string(
             query_from[:DATETIME_LENGTH]
         )  # UTC 时间

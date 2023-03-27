@@ -53,7 +53,7 @@ class ImportTighteningUnit(models.TransientModel):
         if excel_file_type != self.file_type:
             raise ValidationError(
                 _(
-                    f"Please ensure that the extracted file type is the same as the type you selected: {self.file_type}"
+                    f"Please ensure the file type is the same as the type you selected: {self.file_type}"
                 )
             )
         book = pyexcel.get_book(file_type=self.file_type, file_content=excel_file)

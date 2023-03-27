@@ -227,7 +227,7 @@ class OperationResult(HModel):
             raise ValidationError("查询获取结果为空,请重新定义查询参数或等待新结果数据")
         torque, angle = zip(*result)
         result = {"torque": list(torque), "angle": list(angle)}
-        _logger.debug(f"get_result_filter_datetime: {pformat(result)}")
+        _logger.debug("get_result_filter_datetime: %s", pformat(result))
         if not field:
             return result
         if field not in ["torque", "angle"]:

@@ -16,6 +16,9 @@
                             <group>
                                 <field name="tightening_units" widget="many2many_tags"/>
                             </group>
+                            <group>
+                                <field name="max_attempt_times"/>
+                            </group>
                         </group>
                         <footer>
                             <button name="multi_update" string="Multi Update" type="object" class="btn btn-primary active"/>

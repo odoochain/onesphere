@@ -99,8 +99,8 @@ class OperationResult(HModel):
                 )
             )  # 合并结果
         except Exception as e:
-            logger.error(f"Error: {ustr(e)}")
-            return []
+            logger.error("Error: %s", ustr(e))
+            return _datas_return, no_curve_file, no_minio_result
         for i in range(len(_datas)):
             if not _datas[i]:
                 no_minio_result.append(curve_file[i])

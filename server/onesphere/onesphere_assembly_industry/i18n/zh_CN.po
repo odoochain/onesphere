@@ -1297,6 +1297,7 @@ msgstr "MPC"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point__max_attempt_times
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_multi_update_wizard__max_attempt_times
 msgid "Tightening Operation Max Attempt Times"
 msgstr "最大拧紧次数"
 

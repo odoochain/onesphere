@@ -22,6 +22,7 @@ class MultiUpdateWizard(models.TransientModel):
         domain="[('categ_id.name', '=', 'Bolt')]",
     )
     tightening_pset = fields.Integer(string="Program Number(Pset/Job)")
+    max_attempt_times = fields.Integer(string="Tightening Operation Max Attempt Times")
 
     def multi_update(self):
         if not self.env.context.get("step_id"):
@@ -48,4 +49,9 @@ class MultiUpdateWizard(models.TransientModel):
             )
             point.tightening_pset = (
                 self.tightening_pset if self.tightening_pset else point.tightening_pset
+            )
+            point.max_attempt_times = (
+                self.max_attempt_times
+                if self.max_attempt_times
+                else point.max_attempt_times
             )

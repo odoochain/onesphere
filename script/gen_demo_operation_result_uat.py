@@ -131,7 +131,7 @@ def get_feature_json(entity):
         feature_dic = {data["entity_id"][index]: feature_item}
         feature = json.dumps(feature_dic, indent=4)
     except Exception as e:
-        _logger.error(f"get feature json failed: {ustr(e)}")
+        _logger.error("get feature json failed: %s", ustr(e))
     return feature, snug
 
 

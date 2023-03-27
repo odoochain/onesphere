@@ -17,5 +17,7 @@ def create_related_work_station_area_hook(cr, registry):
             workcenter.write({"related_work_area_id": rec.id})
         except Exception:
             _logger.exception(
-                f"Create Workcenter[{workcenter.id}] Related Work Station Area Error: {Exception}"
+                "Create Workcenter[%s] Related Work Station Area Error: %s",
+                workcenter.id,
+                Exception,
             )

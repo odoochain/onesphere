@@ -156,59 +156,55 @@ class WizardTighteningResultReport(models.TransientModel):
     )
 
     def get_tightening_point(self):
-        sql = f""" SELECT distinct(tightening_point_name) from onesphere_tightening_result WHERE track_no='{self.track_no}' """
-        self._cr.execute(sql)
+        sql = """ SELECT distinct(tightening_point_name) from onesphere_tightening_result WHERE track_no=%s """
+        self._cr.execute(sql, (self.track_no,))
         results = self._cr.fetchall()
         return results
 
     def get_work_center(self):
-        sql = f""" SELECT distinct(workcenter_code) from onesphere_tightening_result WHERE track_no='{self.track_no}' """
-        self._cr.execute(sql)
+        sql = """ SELECT distinct(workcenter_code) from onesphere_tightening_result WHERE track_no=%s """
+        self._cr.execute(sql, (self.track_no,))
         results = self._cr.fetchall()
         return results
 
-    def get_results_via_work_center(self, work_center):
-        work_center_query = f"""'workcenter_code = '{work_center}' """
-        if not work_center:
-            work_center_query = "workcenter_code is Null"
-
-        sql = f"""SELECT tightening_result, tightening_process_no, measurement_final_torque, measurement_final_angle, 
+    def get_results_via_work_center(self, work_center=""):
+        sql = """SELECT tightening_result, tightening_process_no, measurement_final_torque, measurement_final_angle, 
                 control_time, otb.name, attribute_equipment_no, error_code FROM onesphere_tightening_result 
                              left join onesphere_tightening_bolt otb on otb.id = onesphere_tightening_result.tightening_point_name
-                WHERE track_no='{self.track_no}' AND  {work_center_query}  ORDER BY tightening_point_name, control_time"""
-        self._cr.execute(sql)
+                WHERE track_no=%s AND workcenter_code=%s ORDER BY tightening_point_name, control_time"""
+        self._cr.execute(sql, (self.track_no, work_center))
         results = self._cr.fetchall()
 
-        sql2 = f"""SELECT tightening_result from 
+        sql2 = """SELECT tightening_result from 
                 (select t.*,row_number() over(partition by tightening_point_name order by control_time desc) rn
                 from onesphere_tightening_result t 
-                WHERE track_no='{self.track_no}' AND  {work_center_query} ) a  where a.rn = 1    
+                WHERE track_no=%s AND workcenter_code=%s) a  where a.rn = 1    
         """
-        self._cr.execute(sql2)
+        self._cr.execute(sql2, (self.track_no, work_center))
         last_results = self._cr.fetchall()
         final_result = (
             "ok" if all(result[0] == "ok" for result in last_results) else "nok"
         )
         return results, final_result
 
-    def get_count_groupby_tightening_result(self, filter="1=1"):
-        sql = f"""SELECT tightening_result, count(*) FROM onesphere_tightening_result WHERE track_no='{self.track_no}' AND {filter} GROUP BY tightening_result ORDER BY tightening_result desc"""
-        self._cr.execute(sql)
+    def get_count_groupby_tightening_result(self):
+        sql = """SELECT tightening_result, count(*) FROM onesphere_tightening_result WHERE track_no=%s GROUP BY tightening_result ORDER BY tightening_result desc"""
+        self._cr.execute(sql, (self.track_no,))
         d = self._cr.fetchall()
         result = {dd[0]: dd[1] for dd in d}
         return result
 
     def get_results_via_blot_id(self, bolt_id):
-        sql = f"""SELECT tightening_result, tightening_process_no, measurement_final_torque, measurement_final_angle, 
+        sql = """SELECT tightening_result, tightening_process_no, measurement_final_torque, measurement_final_angle, 
                 control_time, workcenter_code, attribute_equipment_no, error_code FROM onesphere_tightening_result 
-                WHERE track_no='{self.track_no}' AND tightening_point_name={bolt_id} ORDER BY control_time"""
-        self._cr.execute(sql)
+                WHERE track_no=%s AND tightening_point_name=%s ORDER BY control_time"""
+        self._cr.execute(sql, (self.track_no, bolt_id))
         results = self._cr.fetchall()
         return results
 
     def get_bolt_number(self, bolt_id):
-        sql = f"""SELECT name from onesphere_tightening_bolt WHERE id={bolt_id} """
-        self._cr.execute(sql)
+        sql = """SELECT name from onesphere_tightening_bolt WHERE id=%s """
+        self._cr.execute(sql, (bolt_id,))
         result = self._cr.fetchone()
         return result[0]
 

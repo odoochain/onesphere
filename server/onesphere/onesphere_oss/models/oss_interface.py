@@ -41,7 +41,7 @@ def oss_wrapper(raw_resp=True):
         def _oss_wrap(*args, **kw):
             data = None
             resp = None
-            _logger.debug(f"params:{args}, object params: {kw}")
+            _logger.debug("params:%s, object params: %s", args, kw)
             try:
                 resp: Optional[ObjectWriteResult, urllib3.response.HTTPResponse] = f(
                     *args, **kw
@@ -51,7 +51,7 @@ def oss_wrapper(raw_resp=True):
                 if isinstance(resp, urllib3.response.HTTPResponse):
                     data = resp.data
             except Exception as e:
-                _logger.error(f"{f.__name__}: {ustr(e)}")
+                _logger.error("%s: %s", f.__name__, ustr(e))
             finally:
                 if not resp:
                     return resp
@@ -128,7 +128,7 @@ class OSSInterface(models.AbstractModel):
             for task in as_completed(task_list):
                 task_exception = task.exception()
                 if task_exception:
-                    _logger.error(f"get_oss_objects 任务执行失败: {ustr(task_exception)}")
+                    _logger.error("get_oss_objects 任务执行失败: %s", ustr(task_exception))
                     continue
                 data.update({task_list[task]: task.result()})
         return data
