@@ -50,7 +50,8 @@ G_TMPL = Template(
         {% endfor %}
         </data>
 </odoo>
-""", autoescape=True
+""",
+    autoescape=True,
 )
 
 RECORD_TMPL = Template(
@@ -82,7 +83,8 @@ RECORD_TMPL = Template(
             <field name="cap_snug_features_save">{{ cap_snug_features_save }}</field>
             <field name="analysis_result_state">{{ analysis_result_state }}</field>
         </record>
-""", autoescape=True
+""",
+    autoescape=True,
 )
 
 

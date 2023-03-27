@@ -26,7 +26,8 @@ G_TMPL = Template(
         {% endfor %}
         </data>
 </odoo>
-""", autoescape=True
+""",
+    autoescape=True,
 )
 
 RECORD_TMPL = Template(
@@ -36,7 +37,8 @@ RECORD_TMPL = Template(
             <field name="final_judge_analysis_result_state">{{ analysis_result_state }}</field>
             <field name="cap_error_massage">{{ cap_error_massage }}</field>
         </record>
-""", autoescape=True
+""",
+    autoescape=True,
 )
 
 
