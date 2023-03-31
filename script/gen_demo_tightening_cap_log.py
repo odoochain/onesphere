@@ -35,7 +35,7 @@ RECORD_TMPL = Template(
         <record id="onesphere_assembly_industry.tightening_result_{{ id }}"  model="onesphere.tightening.result">
             <field name="analysis_result_state">{{ analysis_result_state }}</field>
             <field name="final_judge_analysis_result_state">{{ analysis_result_state }}</field>
-            <field name="cap_error_massage">{{ cap_error_massage }}</field>
+            <field name="cap_error_message">{{ cap_error_message }}</field>
         </record>
 """,
     autoescape=True,
@@ -71,13 +71,13 @@ if __name__ == "__main__":
     for i in range(1000):
         delta_day = random.choice([1, 2])
         analysis_result_state = random.choice(["ok", "nok"])
-        cap_error_massage = random.choice(["", "101", "101,102", "101,102,103"])
+        cap_error_message = random.choice(["", "101", "101,102", "101,102,103"])
         if analysis_result_state == "ok":
-            cap_error_massage = ""
+            cap_error_message = ""
         m = gen_record_msg(
             id=i,
             analysis_result_state=analysis_result_state,
-            cap_error_massage=cap_error_massage,
+            cap_error_message=cap_error_message,
         )
         rec_str.append(m)
     ss = G_TMPL.render(items=rec_str)

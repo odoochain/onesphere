@@ -93,7 +93,7 @@ def get_temp_file_from_result(env, result_ids, platform="", file_type=EXCEL_TYPE
                 "update_time": control_time,
                 "user_id": result.user_id.id if result.tightening_point_name else 0,
                 "vin": result.track_no or "",
-                "error_tag": result.cap_error_massage or "",
+                "error_tag": result.cap_error_message or "",
                 "result": result.tightening_result or "",
                 "type": result.work_mode or "",
             }

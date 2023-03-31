@@ -52,9 +52,9 @@
                 </xpath>
                 <xpath expr="//label[@for='standard_price']" position="replace">
                 </xpath>
-<!--                <xpath expr="//page[@name='inventory']" position="attributes">-->
-<!--                    <attribute name="invisible">1</attribute>-->
-<!--                </xpath>-->
+                <xpath expr="//page[@name='inventory']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
             </field>
         </record>
 
