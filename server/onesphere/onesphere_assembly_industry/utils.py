@@ -54,13 +54,12 @@ def get_xr_spc_echarts_options(data=None, query_type="torque", description="", s
             # 'min': data.get('lower', 0),
             # 'max': data.get('upper', 'dataMax'),round(val * 100, 2)
             "min": round(
-                min(min(y1), data.get("lower", 0) * 1.1 - data.get("upper", 60) * 0.1),
+                min(min(y1), data.get("lower", 0) * 1.1 - data.get("upper", 0) * 0.1),
                 2,
             ),
             "max": round(
                 max(max(y1), data.get("upper", 0) * 1.1 - data.get("lower", 0) * 0.1), 2
             ),
-            "interval": 1,
             "axisLabel": {"formatter": "{value}"},
         },
     ]
@@ -118,7 +117,7 @@ def get_xr_spc_echarts_options(data=None, query_type="torque", description="", s
                             "formatter": "{b}\n{c}",
                         },
                         "yAxis": data.get("upper", "dataMax") * 2 / 3
-                                 + data.get("center") / 3,
+                        + data.get("center") / 3,
                         "lineStyle": {
                             "type": "dashed",  # 目标值虚线，其他值实线
                             "width": 1,
@@ -134,7 +133,7 @@ def get_xr_spc_echarts_options(data=None, query_type="torque", description="", s
                             "formatter": "{b}\n{c}",
                         },
                         "yAxis": data.get("upper", "dataMax") / 3
-                                 + data.get("center") * 2 / 3,
+                        + data.get("center") * 2 / 3,
                         "lineStyle": {
                             "type": "dashed",  # 目标值虚线，其他值实线
                             "width": 1,
@@ -197,33 +196,30 @@ def get_xr_spc_echarts_options(data=None, query_type="torque", description="", s
         "yAxis": yAxisOptions,
         "series": seriesOptions,
         "toolbox": {
-            "top": '3%',
-            "right": '1%',
+            "top": "3%",
+            "right": "1%",
             "show": True,
             "feature": {
                 "saveAsImage": {
                     "name": uuid.uuid4().hex,
-                    "title": '保存图片',
-                    "show": True
+                    "title": "保存图片",
+                    "show": True,
                 },
                 "dataZoom": {
-                    "title": {
-                        "zoom": '区域缩放',
-                        "back": '区域缩放还原'
-                    },
+                    "title": {"zoom": "区域缩放", "back": "区域缩放还原"},
                     "brushStyle": {
                         "borderWidth": 1,
-                        "color": 'rgba(139,252,174,0.2)',
-                        "borderColor": 'rgba(126,180,120,0.8)'
-                    }
-                }
-            }
+                        "color": "rgba(139,252,174,0.2)",
+                        "borderColor": "rgba(126,180,120,0.8)",
+                    },
+                },
+            },
         },
     }
 
 
 def get_heap_map_echarts_options(
-        data=None, tooltip_name="", description="", dimension=2
+    data=None, tooltip_name="", description="", dimension=2
 ):
     if data is None:
         data = {}
@@ -271,9 +267,7 @@ def get_heap_map_echarts_options(
     return option
 
 
-def get_dist_echarts_options(
-        data=None, query_type="torque", description="", type="norm"
-):
+def get_dist_echarts_options(data=None, query_type="torque", description=""):
     """生成正态分布需要的序列
     Args:
         data ([type]): [description]
@@ -307,7 +301,6 @@ def get_dist_echarts_options(
             "name": "概率(Probability)",
             "min": 0,
             "max": "dataMax",
-            "interval": 5,
             "axisLabel": {"formatter": "{value} %"},
         },
     ]

@@ -82,7 +82,7 @@ class OnesphereAssyFailureAnalysis(models.TransientModel):
         ret = {
             "pages": {
                 "o_spc_weibull_dist": get_dist_echarts_options(
-                    dict_weill_dict, query_type, description, type="weill"
+                    dict_weill_dict, query_type, description
                 ),
             },
             "title": "失效分析成功!!!",
