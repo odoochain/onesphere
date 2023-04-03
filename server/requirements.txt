@@ -5,7 +5,7 @@ validators==0.18.2
 boltons==21.0.0
 pyexcel==0.7.0
 pyexcel-xlsx==0.6.0
-pyexcel-xls==0.7.0
+pyexcel-xls==0.6.1
 boto3==1.18.25
 numpy==1.21.5;python_version >= '3.7'
 numpy==1.19.5;python_version <= '3.6'
