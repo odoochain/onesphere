@@ -5,9 +5,10 @@ from odoo.addons.onesphere_assembly_industry.constants import (
     DEFAULT_ENTITY_ID_RULES,
 )
 
-from odoo import fields, models
+from odoo import fields, models, api, _
 import logging
 from odoo.tools import ustr
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -67,3 +68,11 @@ class ResConfigSettings(models.TransientModel):
             msg = f"删除历史拧紧结果错误: {ustr(e)}"
             self.env.user.notify_danger(msg)
             _logger.warning(msg)
+
+    @api.constrains("tightening_process_proposal_duration")
+    def _constraint_tightening_process_proposal_duration(self):
+        for record in self:
+            if record.tightening_process_proposal_duration <= 0:
+                raise ValidationError(
+                    _("Tightening process proposal duration must be greater 0")
+                )

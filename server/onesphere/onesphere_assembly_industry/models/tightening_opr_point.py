@@ -201,3 +201,9 @@ class TighteningOprPoint(models.Model):
 
     # _sql_constraints = [
     #     ('name_uniq', 'unique(name)', 'Tightening Operation Point Name MUST BE Unique!')]
+
+    @api.constrains("max_attempt_times")
+    def _constraint_max_attempt_times(self):
+        for record in self:
+            if record.max_attempt_times <= 0:
+                raise ValidationError(_("Max attempt times must bigger than 0"))
