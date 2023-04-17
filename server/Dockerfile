@@ -1,4 +1,4 @@
-FROM ghcr.io/masami10/odoo_crack_docker/oneshare_odoo:14
+FROM ghcr.io/masami10/odoo_crack_docker/oneshare_odoo:14.0-3.10
 
 USER root
 
@@ -24,6 +24,8 @@ RUN mkdir /dask-worker-space \
 # oneshare base requirements
 RUN pip3 install -r /mnt/extra-addons/requirements.txt \
     && rm -f /requirements.txt \
-    && rm -f /mnt/extra-addons/requirements.txt
+    && rm -f /mnt/extra-addons/requirements.txt \
+# 解决生成报告一定需要用户界面的问题
 ENV QT_QPA_PLATFORM=offscreen
+
 USER odoo

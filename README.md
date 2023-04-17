@@ -42,7 +42,7 @@ ENV_PROCESS_PROPOSAL_DURATION: 30 #给出建议角度范围所取的拧紧结果
 
 ```shell
 git submodule update --init --recursive
-sudo apt-get install -y libxml2-dev libxslt1-dev libsasl2-dev libldap2-dev libpq-dev build-essential libssl-dev phantomjs
+sudo apt-get install -y libjpeg-dev libxml2-dev libxslt1-dev libsasl2-dev libldap2-dev libpq-dev build-essential libssl-dev phantomjs
 sudo apt-get install -y npm nodejs
 sudo npm install -g rtlcss
 ```
