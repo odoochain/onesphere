@@ -1,4 +1,4 @@
-FROM ghcr.io/masami10/odoo_crack_docker/oneshare_odoo:14.0-3.10
+FROM ghcr.io/masami10/odoo_crack_docker/oneshare_odoo:14.0-3.9
 
 USER root
 
