@@ -113,8 +113,17 @@ def backup_minio_data(stream):
         stream.seek(0)
 
 
+def offline_backup_minio(backup_path=os.path.join(odoo.tools.config["data_dir"], "curves.zip")):
+    with io.FileIO(backup_path, "w") as f:
+        backup_minio_data(f)
+
+
+def offline_restore_minio(backup_path=os.path.join(odoo.tools.config["data_dir"], "curves.zip")):
+    restore_minio_data(backup_path)
+
+
 def offline_backup_database(
-    db_name="", backup_path=os.path.join(odoo.tools.config["data_dir"], "backup.zip")
+        db_name="", backup_path=os.path.join(odoo.tools.config["data_dir"], "backup.zip")
 ):
     """
     离线备份数据库至data_dir下
