@@ -82,6 +82,42 @@ def get_temp_file(
     return temp_file
 
 
+def get_result_list(result_ids, **kwargs):
+    result_list, curve_file_list, entity_id_list = [], [], []
+    for result in result_ids:
+        control_time = (
+            (result.control_time + (timedelta(hours=8))).strftime(
+                DEFAULT_SERVER_DATETIME_FORMAT
+            )
+            if result.control_time
+            else ""
+        )
+        work_mode = WORK_MODE_DIC.get(result.work_mode, "")
+        ret = {
+            "追溯码": result.track_no or "",
+            "工位": result.workcenter_code or "",
+            "工作模式": work_mode,
+            "工具序列号": result.attribute_equipment_no or "",
+            "程序号": result.tightening_process_no or "",
+            "螺栓名称": result.tightening_point_name.name
+            if result.tightening_point_name
+            else "",
+            "曲线ID": result.entity_id or "",
+            "拧紧策略": result.tightening_strategy or "",
+            "拧紧结果": result.tightening_result or "",
+            "拧紧最终扭矩": result.measurement_final_torque or "",
+            "拧紧最终角度": result.measurement_final_angle or "",
+            "拧紧时间": control_time,
+            "拧紧人员": result.user_list or "",
+        }
+        result_list.append(ret)
+        curve_file_list.append(
+            json.loads(result.curve_file)[0].get("file") if result.curve_file else ""
+        )
+        entity_id_list.append(result.entity_id or "")
+    return result_list, curve_file_list, entity_id_list
+
+
 def get_temp_file_from_result(env, result_ids, platform="", file_type=EXCEL_TYPE):
     ICP = env["ir.config_parameter"]
     download_tightening_results_limit = int(
@@ -105,7 +141,7 @@ def get_temp_file_from_result(env, result_ids, platform="", file_type=EXCEL_TYPE
         result_list,
         curve_file_list,
         entity_id_list,
-    ) = OnesphereTighteningResultController.get_result_list(result_ids)
+    ) = get_result_list(result_ids, file_type=file_type)
     temp_file = get_temp_file(
         env,
         bucket_name,
@@ -119,44 +155,6 @@ def get_temp_file_from_result(env, result_ids, platform="", file_type=EXCEL_TYPE
 
 
 class OnesphereTighteningResultController(http.Controller):
-    @staticmethod
-    def get_result_list(result_ids):
-        result_list, curve_file_list, entity_id_list = [], [], []
-        for result in result_ids:
-            control_time = (
-                (result.control_time + (timedelta(hours=8))).strftime(
-                    DEFAULT_SERVER_DATETIME_FORMAT
-                )
-                if result.control_time
-                else ""
-            )
-            work_mode = WORK_MODE_DIC.get(result.work_mode, "")
-            ret = {
-                "追溯码": result.track_no or "",
-                "工位": result.workcenter_code or "",
-                "工作模式": work_mode,
-                "工具序列号": result.attribute_equipment_no or "",
-                "程序号": result.tightening_process_no or "",
-                "螺栓名称": result.tightening_point_name.name
-                if result.tightening_point_name
-                else "",
-                "曲线ID": result.entity_id or "",
-                "拧紧策略": result.tightening_strategy or "",
-                "拧紧结果": result.tightening_result or "",
-                "拧紧最终扭矩": result.measurement_final_torque or "",
-                "拧紧最终角度": result.measurement_final_angle or "",
-                "拧紧时间": control_time,
-                "拧紧人员": result.user_list or "",
-            }
-            result_list.append(ret)
-            curve_file_list.append(
-                json.loads(result.curve_file)[0].get("file")
-                if result.curve_file
-                else ""
-            )
-            entity_id_list.append(result.entity_id or "")
-        return result_list, curve_file_list, entity_id_list
-
     @http.route(
         "/oneshare/assembly/tightening/download",
         type="http",

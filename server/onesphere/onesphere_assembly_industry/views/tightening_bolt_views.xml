@@ -4,7 +4,7 @@
             <field name="name">tightening_bolt_view_form</field>
             <field name="model">onesphere.tightening.bolt</field>
             <field name="arch" type="xml">
-                <form string="Tightening Bolt" js_class="tightening_bolt_form">
+                <form string="Tightening Bolt" js_class="tightening_bolt_form" create="false">
                     <sheet>
                         <field name="tightening_results_count" invisible="1"/>
                         <div class="oe_button_box" name="button_box">

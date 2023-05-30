@@ -25,10 +25,10 @@
                             </group>
                         </group>
                         <notebook>
-                            <page string="Description" name="description">
+                            <page string="Controller Description" name="controller_description">
                                 <field name="note"/>
                             </page>
-                            <page string="Product Information" name="product_information">
+                            <page string="Controller Information" name="controller_information">
                                 <group>
                                     <group>
                                         <field name="partner_id"/>

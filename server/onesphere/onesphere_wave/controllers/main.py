@@ -32,7 +32,7 @@ ENV_DOCKER_URL = os.getenv("ENV_DOCKER_URL", "unix://var/run/docker.sock")
 ENV_BACKUP_WITH_MINIO = strtobool(os.getenv("ENV_BACKUP_WITH_MINIO", "False"))
 
 try:
-    client = docker.DockerClient(base_url=ENV_DOCKER_URL)
+    client = docker.DockerClient(base_url=ENV_DOCKER_URL, version="auto")
 except Exception as e:
     _logger.error("初始化docker客户端错误: %s", ustr(e))
     client = None

@@ -4,7 +4,7 @@
             <field name="name">tightening_point_view_form</field>
             <field name="model">onesphere.tightening.opr.point</field>
             <field name="arch" type="xml">
-                <form string="Tightening Point">
+                <form string="Tightening Point" create="false">
                     <sheet>
                         <group>
                             <group>
