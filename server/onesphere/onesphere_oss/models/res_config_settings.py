@@ -7,6 +7,7 @@ from odoo.addons.oneshare_utils.constants import (
     ENV_OSS_ACCESS_KEY,
     ENV_OSS_SECRET_KEY,
     ENV_OSS_SECURITY_TRANSPORT,
+    ENV_OSS_EXPIRATION_DAYS,
 )
 
 from odoo import fields, models
@@ -25,6 +26,7 @@ class ResConfigSettings(models.TransientModel):
             oss_interface = self.env["onesphere.oss.interface"]
             ret = oss_interface.create_bucket(bucket_name)
             if ret:
+                oss_interface.set_lifecycle(bucket_name, self.oss_expiration_days)
                 self.env.user.notify_info(f"对象存储: {bucket_name}已创建")
             else:
                 raise UserError("创建失败!!!")
@@ -73,6 +75,16 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="oss.security",
     )
 
+    oss_expiration_days = fields.Integer(
+        default=ENV_OSS_EXPIRATION_DAYS,
+        string="OSS Expiration Days(days)",
+        config_parameter="oss.expiration_days",
+    )
+
     def set_values(self):
         super(ResConfigSettings, self).set_values()
-        self.env["onesphere.oss.interface"].reset_global_minio_client()
+        oss_interface = self.env["onesphere.oss.interface"]
+        oss_interface.reset_global_minio_client()
+        existed = oss_interface.bucket_exists(self.oss_bucket_name)
+        if existed:
+            oss_interface.set_lifecycle(self.oss_bucket_name, self.oss_expiration_days)

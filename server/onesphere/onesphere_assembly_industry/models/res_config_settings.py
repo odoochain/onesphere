@@ -3,7 +3,9 @@ from odoo.addons.onesphere_assembly_industry.constants import (
     DEFAULT_BOLT_NAME_RULES,
     ENV_PROCESS_PROPOSAL_DURATION,
     DEFAULT_ENTITY_ID_RULES,
+    TIGHTENING_RESULT_RETENTION_DAYS,
 )
+from odoo.addons.oneshare_odoo_modify.model import do_add_retention_policy
 
 from odoo import fields, models, api, _
 import logging
@@ -35,6 +37,13 @@ class ResConfigSettings(models.TransientModel):
         string="曲线ID拼接规则",
         help="the rules of curve id",
         config_parameter="oneshare.entity_id.rules",
+    )
+
+    tightening_result_retention_policy = fields.Integer(
+        default=TIGHTENING_RESULT_RETENTION_DAYS,
+        string="拧紧结果保留策略(天)",
+        help="the retention policy of tightening result",
+        config_parameter="oneshare.tightening_result.retention_policy",
     )
 
     def remove_all_operations(self):
@@ -76,3 +85,11 @@ class ResConfigSettings(models.TransientModel):
                 raise ValidationError(
                     _("Tightening process proposal duration must be greater 0")
                 )
+
+    def set_values(self):
+        super(ResConfigSettings, self).set_values()
+        do_add_retention_policy(
+            self.env.cr,
+            "onesphere_tightening_result",
+            f"{self.tightening_result_retention_policy} days",
+        )

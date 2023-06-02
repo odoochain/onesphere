@@ -72,5 +72,6 @@
     "qweb": [
         "static/xml/template.xml",
     ],
+    "post_init_hook": "_assembly_industry_post_init",
     "application": True,
 }

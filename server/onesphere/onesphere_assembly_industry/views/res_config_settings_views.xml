@@ -20,6 +20,18 @@
                     </div>
                 </div>
 
+                <h2>Tightening Result Retention Policy</h2>
+                <div class="row mt16 o_settings_container" name="tightening_result_retention_policy">
+                    <div class="col-12 col-lg-6 o_setting_box" id="tightening_result_retention_policy">
+                        <div class="o_setting_right_pane">
+                            <div class="content-group mt16">
+                                <label for="tightening_result_retention_policy" class="o_light_label"/>
+                                <field name="tightening_result_retention_policy"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <h2>Tightening Process Proposal</h2>
                 <div class="row mt16 o_settings_container" name="tightening_process_proposal_duration">
                     <div class="col-12 col-lg-6 o_setting_box" id="tightening_process_proposal_duration">

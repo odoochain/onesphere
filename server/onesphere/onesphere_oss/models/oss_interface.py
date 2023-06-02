@@ -9,6 +9,8 @@ from typing import Optional, Union
 
 import urllib3
 from minio import Minio
+from minio.lifecycleconfig import LifecycleConfig, Rule, Expiration
+from minio.commonconfig import Filter, ENABLED
 from minio.deleteobjects import DeleteObject
 from minio.helpers import ObjectWriteResult
 from odoo.addons.oneshare_utils.constants import DEFAULT_TIMEOUT
@@ -215,6 +217,25 @@ class OSSInterface(models.AbstractModel):
             self.env.user.notify_danger(msg)
             return False
         return True
+
+    def set_lifecycle(self, bucket_name: str, days: int):
+        try:
+            client = self.ensure_oss_client()
+            config = LifecycleConfig(
+                [
+                    Rule(
+                        status=ENABLED,
+                        rule_filter=Filter(prefix=""),
+                        rule_id="lifecycle_rule",
+                        expiration=Expiration(days=days),
+                    )
+                ],
+            )
+            client.set_bucket_lifecycle(bucket_name, config)
+        except Exception as e:
+            msg = f"对象存储: {bucket_name}更新保留策略失败: {ustr(e)}"
+            _logger.error(msg)
+            self.env.user.notify_danger(msg)
 
     @oss_wrapper(raw_resp=False)
     def put_oss_object(

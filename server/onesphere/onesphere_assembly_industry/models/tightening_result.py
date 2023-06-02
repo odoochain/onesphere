@@ -136,6 +136,8 @@ class OperationResult(HModel):
     )
     user_list = fields.Char(string="User List", help="Operators")
 
+    tag = fields.Char(string="Tag")
+
     _sql_constraints = [
         (
             "tid_track_no_gun_uniq",
@@ -263,7 +265,8 @@ class OperationResult(HModel):
             measure_rule_result varchar,
             step_type varchar,
             work_mode varchar,
-            user_list varchar
+            user_list varchar,
+            tag varchar
         ) RETURNS BIGINT AS
         $$
         DECLARE
@@ -332,7 +335,8 @@ class OperationResult(HModel):
                                                             measure_rule_result,
                                                             step_type,
                                                             work_mode,
-                                                            user_list)
+                                                            user_list,
+                                                            tag)
             VALUES (r_entity_id,
                     vin_code,
                     gun_sn,
@@ -356,7 +360,8 @@ class OperationResult(HModel):
                     measure_rule_result,
                     r_step_type,
                     work_mode,
-                    user_name_list);
+                    user_name_list,
+                    tag);
             result_id = lastval();
             RETURN result_id;
         
@@ -391,7 +396,8 @@ class OperationResult(HModel):
     measure_rule_result varchar,
     step_type varchar,
     work_mode varchar,
-    user_list varchar
+    user_list varchar,
+    tag varchar
 ) RETURNS BIGINT AS
 $$
 DECLARE
@@ -470,7 +476,8 @@ DECLARE
                                                     measure_rule_result,
                                                     step_type,
                                                     work_mode,
-                                                    user_list)
+                                                    user_list,
+                                                    tag)
     VALUES (r_entity_id,
             track_code_id,
             gun_sn,
@@ -494,7 +501,8 @@ DECLARE
             measure_rule_result,
             r_step_type,
             work_mode,
-            user_name_list);
+            user_name_list,
+            tag);
     result_id = lastval();
     RETURN result_id;
 

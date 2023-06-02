@@ -56,3 +56,8 @@ DEFAULT_ENTITY_ID_RULES = "${track_no}_${tool_sn}_${workcenter_code}_${tightenin
 
 # 当前文件夹路径
 CURRENT_PATH = os.path.dirname(__file__)
+
+# 默认拧紧结果保留天数
+TIGHTENING_RESULT_RETENTION_DAYS = int(
+    os.getenv("TIGHTENING_RESULT_RETENTION_DAYS", "365")
+)
