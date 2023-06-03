@@ -25,7 +25,7 @@ services:
     container_name: onesphere
     networks:
       - traefik
-    image: ghcr.io/ethermeta-org/onesphere/onesphere:14
+    image: ghcr.io/ethermeta-org/onesphere:14
     extra_hosts:
       - host.docker.internal:host-gateway
     logging:
