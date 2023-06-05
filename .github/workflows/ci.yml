@@ -25,13 +25,16 @@ jobs:
           submodules: 'true'
           lfs: 'true'
           token: ${{ secrets.PAT }}
+      - name: set time
+        run: |
+          echo "TIME=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
       - name: docker login github package
         run: |
           docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.PAT }}
       - name: build image
         run: |
           cd ./server
-          docker build --tag "ghcr.io/ethermeta-org/onesphere:14" --no-cache=true .
+          docker build --tag ghcr.io/ethermeta-org/onesphere:14-${{ env.TIME }} --no-cache=true .
       - name: publish github docker registry
         run: |
-          docker push ghcr.io/ethermeta-org/onesphere:14
+          docker push ghcr.io/ethermeta-org/onesphere:14-${{ env.TIME }}
