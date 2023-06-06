@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-18 08:11+0000\n"
-"PO-Revision-Date: 2023-05-18 08:11+0000\n"
+"POT-Creation-Date: 2023-06-06 08:30+0000\n"
+"PO-Revision-Date: 2023-06-06 08:30+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1182,6 +1182,11 @@ msgid "TWIN-CVI3"
 msgstr ""
 
 #. module: onesphere_assembly_industry
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_result__tag
+msgid "Tag"
+msgstr ""
+
+#. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.operation_import_mdm_form_view
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_unit_import_mdm_form_view
 msgid "Template Download"
@@ -1392,6 +1397,11 @@ msgstr "拧紧结果失效分析"
 #: model:ir.ui.menu,name:onesphere_assembly_industry.tightening_result_report
 msgid "Tightening Result Report"
 msgstr "拧紧结果报告"
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_bolt_name_rules_config_settings_view_form
+msgid "Tightening Result Retention Policy"
+msgstr "拧紧结果保留策略"
 
 #. module: onesphere_assembly_industry
 #: model:ir.actions.act_window,name:onesphere_assembly_industry.action_tightening_result_spc_form
@@ -1826,6 +1836,11 @@ msgid "sequence"
 msgstr "序号"
 
 #. module: onesphere_assembly_industry
+#: model:ir.model.fields,help:onesphere_assembly_industry.field_res_config_settings__tightening_result_retention_policy
+msgid "the retention policy of tightening result"
+msgstr "拧紧结果保留策略"
+
+#. module: onesphere_assembly_industry
 #: model:ir.model.fields,help:onesphere_assembly_industry.field_res_config_settings__bolt_name_rules
 msgid "the rules of bolt name"
 msgstr "螺栓编号规则"
@@ -1929,6 +1944,11 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
 msgid "拧紧结果"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_res_config_settings__tightening_result_retention_policy
+msgid "拧紧结果保留策略(天)"
 msgstr ""
 
 #. module: onesphere_assembly_industry
