@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-15 01:09+0000\n"
-"PO-Revision-Date: 2022-12-15 01:09+0000\n"
+"POT-Creation-Date: 2023-06-05 07:05+0000\n"
+"PO-Revision-Date: 2023-06-05 07:05+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -74,6 +74,11 @@ msgid "Bill of Material"
 msgstr "物料清单"
 
 #. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_search
+msgid "Categories"
+msgstr ""
+
+#. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__reason
 msgid "Cause"
 msgstr ""
@@ -85,6 +90,7 @@ msgstr "一个工位上的同一工单不同工序如果需要合并成一个工
 
 #. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__code
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_measurement_calc_type_view_tree
 msgid "Code"
 msgstr "编号"
 
@@ -532,6 +538,7 @@ msgstr "作业类型"
 #. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__onesphere_operation_ids
 #: model_terms:ir.ui.view,arch_db:onesphere_core.oneshare_mrp_bom_form_inherit
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_search
 msgid "Operations"
 msgstr "作业"
 
@@ -597,11 +604,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_form
 msgid "Reference"
 msgstr "参照"
-
-#. module: onesphere_core
-#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_measurement_calc_type_view_tree
-msgid "Reference Code"
-msgstr "参照编号"
 
 #. module: onesphere_core
 #: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__code
@@ -823,6 +825,11 @@ msgstr "工步"
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__active
 msgid "active"
 msgstr "有效"
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_measurement_calc_type_view_form
+msgid "code"
+msgstr "编号"
 
 #. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__sequence

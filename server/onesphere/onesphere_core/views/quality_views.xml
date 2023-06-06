@@ -7,7 +7,7 @@
         <field name="model">oneshare.measurement.calc.type</field>
         <field name="arch" type="xml">
             <tree string="Measurement Calculate Type">
-                <field name="code" string="Reference Code"/>
+                <field name="code" string="Code"/>
                 <field name="formula" optional="show"/>
                 <field name="desc" optional="show"/>
                 <field name="active" optional="hide"/>
@@ -28,7 +28,7 @@
                             attrs="{'invisible': [('active', '=', True)]}"/>
                     <div class="oe_title">
                         <div class="oe_edit_only">
-                            <label for="code"/>
+                            <label for="code" string="code"/>
                         </div>
                         <h1 class="mb32">
                             <field name="code" class="mb16"/>
@@ -152,7 +152,7 @@
                             <field name="is_workorder_step" groups="base.group_no_one"/>
                             <field name="can_do_skip" attrs="{'invisible': [('is_workorder_step', '=', False)]}"/>
                             <field name="can_do_rework" attrs="{'invisible': [('is_workorder_step', '=', False)]}"/>
-                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True, 'no_open': True}"/>
                         </group>
                         <group>
                             <field name="test_type" invisible="1"/>

@@ -19,7 +19,13 @@
             <field name="model">maintenance.equipment.category</field>
             <field name="inherit_id" ref="maintenance.hr_equipment_category_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='company_id']" position="after">
+                <xpath expr="//field[@name='technician_user_id']" position="replace">
+                    <field name="technician_user_id" class="oe_inline" domain="[('share', '=', False)]"
+                           options="{'no_create': True, 'no_open': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="replace">
+                    <field name="company_id" groups="base.group_multi_company"
+                           options="{'no_create': True, 'no_open': True}" class="oe_inline"/>
                     <field name="technical_name" readonly="1"/>
                 </xpath>
             </field>
@@ -30,6 +36,19 @@
             <field name="model">maintenance.equipment</field>
             <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="replace">
+                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True, 'no_open': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='technician_user_id']" position="replace">
+                    <field name="technician_user_id" class="oe_inline" domain="[('share', '=', False)]"
+                           options="{'no_create': True, 'no_open': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='owner_user_id']" position="replace">
+                    <field name="owner_user_id" string="Owner" options="{'no_create': True, 'no_open': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="replace">
+                    <field name="partner_id" options="{'no_create': True, 'no_open': True}"/>
+                </xpath>
                 <xpath expr="//field[@name='category_id']" position="after">
                     <field name="technical_name" readonly="1"/>
                 </xpath>
@@ -51,7 +70,7 @@
                 </xpath>
                 <xpath expr="//field[@name='location']" position="after">
                     <field name="workcenter_id" context="{'default_company_id':company_id}"
-                           groups="mrp.group_mrp_routings"/>
+                           groups="mrp.group_mrp_routings" options="{'no_create': True, 'no_open': True}"/>
                 </xpath>
                 <xpath expr="//group[@name='maintenance']" position="after">
                     <group name="statistics">
