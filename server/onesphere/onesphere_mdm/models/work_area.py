@@ -145,7 +145,7 @@ class OneshareMrpWorkArea(models.Model):
 
     def toggle_active(self):
         super(OneshareMrpWorkArea, self).toggle_active()
-        related_workcenter_ids = self.mapped("related_workcenter_id")
+        related_workcenter_ids = self.mapped("related_workcenter_ids")
         if related_workcenter_ids:
             related_workcenter_ids.toggle_active()
         children_ids = self.mapped("child_ids")

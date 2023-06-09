@@ -7,6 +7,9 @@
             <field name="model">mrp.bom</field>
             <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_tmpl_id']" position="replace">
+                    <field name="product_tmpl_id" context="{'default_type': 'product'}" options="{'no_create': True, 'no_open': True}"/>
+                </xpath>
                 <xpath expr="//page[@name='operations']" position="replace">
                     <page string="Operations"
                           name="operations"

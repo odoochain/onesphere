@@ -6,9 +6,16 @@
         <field name="model">mrp.routing.workcenter</field>
         <field name="inherit_id" ref="mrp.mrp_routing_workcenter_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='company_id']" position="after">
+            <xpath expr="//field[@name='company_id']" position="replace">
+                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True, 'no_open': True}"/>
                 <field name="onesphere_bom_ids" widget="many2many_tags" readonly="1"/>
                 <field name="revision" readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='workcenter_id']" position="replace">
+                <field name="workcenter_id" context="{'default_company_id': company_id}" options="{'no_create': True, 'no_open': True}"/>
+            </xpath>
+            <xpath expr="//field[@name='bom_id']" position="replace">
+                <field name="bom_id" invisible="context.get('bom_id_invisible', False)" options="{'no_create': True, 'no_open': True}"/>
             </xpath>
             <xpath expr="//group[1]" position="before">
                 <div class="oe_button_box" name="button_box">
@@ -28,7 +35,7 @@
                         <tree name="mrp_workorder_step_tree" string="Working Steps" editable="bottom">
                             <field name="sequence" widget="handle"/>
                             <field name="operation_id" readonly="1"/>
-                            <field name="work_step_id" required="1"/>
+                            <field name="work_step_id" required="1" options="{'no_create': True, 'no_open': True}"/>
                         </tree>
                         <form name="mrp_workorder_step_form" string="Working Steps">
                             <group>

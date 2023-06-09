@@ -54,7 +54,7 @@ class MrpWorkcenter(models.Model):
 
     def toggle_active(self):
         ret = super(MrpWorkcenter, self).toggle_active()
-        related_work_area_ids = self.self.mapped("related_work_area_id")
+        related_work_area_ids = self.mapped("related_work_area_id")
         if related_work_area_ids:
             related_work_area_ids.toggle_active()
         return ret
