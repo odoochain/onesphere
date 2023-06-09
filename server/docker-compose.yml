@@ -39,7 +39,7 @@ services:
       - /data/onesphere/data:/var/lib/odoo
       - ./odoo.conf:/etc/odoo/odoo.conf
     restart: "always"
-    entrypoint: ["odoo",--proxy-mode,"--load","oneshare_odoo_modify,smile_redis_session_store","--limit-time-cpu","3600","--limit-time-real", "3600","--no-database-list","--limit-time-real-cron", "0","--workers","8","--without-demo","all", "--load-language", "zh_CN"]
+    entrypoint: ["odoo",--proxy-mode,"--load","oneshare_odoo_modify,smile_redis_session_store,l10n_cn_city","--limit-time-cpu","3600","--limit-time-real", "3600","--no-database-list","--limit-time-real-cron", "0","--workers","8","--without-demo","all", "--load-language", "zh_CN"]
     environment:
       - ODOO_HTTP_SOCKET_TIMEOUT=20
       - ENV_TIMESCALE_ENABLE=true #使能timescaledb功能
