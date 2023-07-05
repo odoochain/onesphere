@@ -18,8 +18,7 @@ RUN apt-get update \
 COPY ./onesphere /mnt/extra-addons/
 COPY ./oneshare_base /mnt/extra-addons/
 
-RUN mkdir /dask-worker-space \
-    && chown odoo:odoo /dask-worker-space
+COPY ./oneshare_base/oneshare_odoo_modify/static/src/img/favicon.ico /usr/lib/python3/dist-packages/odoo/addons/web/static/src/img/favicon.ico
 
 # oneshare base requirements
 RUN pip3 install -r /mnt/extra-addons/requirements.txt \
