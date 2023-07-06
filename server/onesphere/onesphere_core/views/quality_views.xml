@@ -139,7 +139,7 @@
                     <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
                             attrs="{'invisible': [('active', '=', True)]}"/>
                     <h2>
-                        <field name="name" required="1"/>
+                        <field name="name" required="1" placeholder="Step Name"/>
                     </h2>
                     <group>
                         <group>

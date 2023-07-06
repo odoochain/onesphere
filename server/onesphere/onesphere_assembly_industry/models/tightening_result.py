@@ -136,7 +136,7 @@ class OperationResult(HModel):
     )
     user_list = fields.Char(string="User List", help="Operators")
 
-    tag = fields.Char(string="Tag")
+    tags = fields.Char(string="Tags")
 
     _sql_constraints = [
         (
@@ -266,7 +266,7 @@ class OperationResult(HModel):
             step_type varchar,
             work_mode varchar,
             user_list varchar,
-            tag varchar
+            tags varchar
         ) RETURNS BIGINT AS
         $$
         DECLARE
@@ -336,7 +336,7 @@ class OperationResult(HModel):
                                                             step_type,
                                                             work_mode,
                                                             user_list,
-                                                            tag)
+                                                            tags)
             VALUES (r_entity_id,
                     vin_code,
                     gun_sn,
@@ -361,7 +361,7 @@ class OperationResult(HModel):
                     r_step_type,
                     work_mode,
                     user_name_list,
-                    tag);
+                    tags);
             result_id = lastval();
             RETURN result_id;
         
@@ -397,7 +397,7 @@ class OperationResult(HModel):
     step_type varchar,
     work_mode varchar,
     user_list varchar,
-    tag varchar
+    tags varchar
 ) RETURNS BIGINT AS
 $$
 DECLARE
@@ -477,7 +477,7 @@ DECLARE
                                                     step_type,
                                                     work_mode,
                                                     user_list,
-                                                    tag)
+                                                    tags)
     VALUES (r_entity_id,
             track_code_id,
             gun_sn,
@@ -502,7 +502,7 @@ DECLARE
             r_step_type,
             work_mode,
             user_name_list,
-            tag);
+            tags);
     result_id = lastval();
     RETURN result_id;
 
