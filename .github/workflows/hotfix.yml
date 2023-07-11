@@ -1,0 +1,38 @@
+name: Onesphere CI HOTFIX Workflow
+
+on:
+  push:
+    tags:
+      - 'hotfix*'
+  repository_dispatch:
+  workflow_dispatch:
+
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get committer details
+        run: |
+          echo Actor: ${{ github.actor }}
+          echo Committed By: ${{ github.event.commits[0].author.name }}
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          ref: hotfix/23-06-13
+          submodules: 'true'
+          lfs: 'true'
+          token: ${{ secrets.PAT }}
+      - name: set time
+        run: |
+          echo "TIME=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+      - name: docker login github package
+        run: |
+          docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.PAT }}
+      - name: build image
+        run: |
+          cd ./server
+          docker build --tag ghcr.io/ethermeta-org/onesphere:14-${{ github.ref_name }} --no-cache=true .
+      - name: publish github docker registry
+        run: |
+          docker push ghcr.io/ethermeta-org/onesphere:14-${{ github.ref_name }}
