@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-05 07:05+0000\n"
-"PO-Revision-Date: 2023-06-05 07:05+0000\n"
+"POT-Creation-Date: 2023-07-04 10:02+0000\n"
+"PO-Revision-Date: 2023-07-04 10:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -557,6 +557,11 @@ msgstr "打印"
 #: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_print_label
 msgid "Print label"
 msgstr "打印标签"
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_form
+msgid "Step Name"
+msgstr "工步名称"
 
 #. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__component_id

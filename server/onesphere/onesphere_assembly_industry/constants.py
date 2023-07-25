@@ -52,7 +52,9 @@ ENV_PROCESS_PROPOSAL_ANGLE_MARGIN = int(
 )  # 默认拿过去三十天的数据进行工艺建议
 
 # 默认曲线id拼接规则
-DEFAULT_ENTITY_ID_RULES = "${track_no}_${tool_sn}_${workcenter_code}_${tightening_id}"
+DEFAULT_ENTITY_ID_RULES = (
+    "${track_no}_${tool_sn}_${workcenter_code}_${tightening_id}_${control_time}"
+)
 
 # 当前文件夹路径
 CURRENT_PATH = os.path.dirname(__file__)
