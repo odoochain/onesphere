@@ -35,6 +35,8 @@ jobs:
         run: |
           cd ./server
           docker build --tag ghcr.io/ethermeta-org/onesphere:14-${{ env.TIME }} --no-cache=true .
+          docker build --tag ghcr.io/ethermeta-org/onesphere:14 --no-cache=true .
       - name: publish github docker registry
         run: |
           docker push ghcr.io/ethermeta-org/onesphere:14-${{ env.TIME }}
+          docker push ghcr.io/ethermeta-org/onesphere:14
