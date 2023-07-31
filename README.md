@@ -1,5 +1,7 @@
 # onesphere
 
+[![DeepSource](https://app.deepsource.com/gh/ethermeta-org/onesphere.svg/?label=active+issues&show_trend=true&token=5amEgbz35iGF3h7RvIay2BLb)](https://app.deepsource.com/gh/ethermeta-org/onesphere/?ref=repository-badge)
+
 OneSphere Open Source MOM(Manufacturing Operation Management) Solution
 
 ### 注意
