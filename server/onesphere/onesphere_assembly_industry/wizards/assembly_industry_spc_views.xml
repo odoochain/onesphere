@@ -68,16 +68,12 @@
             </field>
         </record>
 
-        <record id="action_tightening_result_spc_form" model="ir.actions.act_window">
-            <field name="name">Tightening Result SPC</field>
-            <field name="res_model">onesphere.assy.industry.spc</field>
-            <field name="view_mode">form</field>
-            <field name="target">current</field>
-            <field name="binding_model_id" ref="model_onesphere_assy_industry_spc"/>
-            <field name="view_id" ref="onesphere_tightening_result_spc"/>
-            <field name="binding_view_types">form</field>
+        <record id="action_open_spc_analyze_view" model="ir.actions.server">
+            <field name="name">Open Spc Server Action</field>
+            <field name="model_id" ref="model_onesphere_assy_industry_spc"/>
+            <field name="state">code</field>
+            <field name="code">action = model.open_spc_analyze_view()</field>
         </record>
-
 
         <record id="onesphere_tightening_result_failure_analysis" model="ir.ui.view">
             <field name="name">onesphere_tightening_result_failure_analysis</field>
@@ -135,7 +131,7 @@
         </record>
 
         <menuitem id="menu_assembly_tightening_result_spc" name="Tightening Result SPC"
-                  action="action_tightening_result_spc_form"
+                  action="action_open_spc_analyze_view"
                   parent="onesphere_tightening_result_spc_analysis" sequence="10"/>
 
         <menuitem id="menu_assembly_tightening_failure_analysis" name="Statistical Analysis Of Failure"
