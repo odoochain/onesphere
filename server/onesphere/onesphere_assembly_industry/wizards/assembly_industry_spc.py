@@ -201,3 +201,13 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
             y_histogram_data.append(round(hist[i] / data_len * 100, 2))
             y_normal_data.append(round(y_pdf[i] * 100, 2))
         return x_axis_data, y_histogram_data, y_normal_data
+
+    @api.model
+    def open_spc_analyze_view(self):
+        return {
+            "name": "SPC分析",
+            "view_mode": "form",
+            "res_model": self._name,
+            "type": "ir.actions.act_window",
+            "context": self.env.context,
+        }
