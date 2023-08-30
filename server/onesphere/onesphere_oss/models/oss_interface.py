@@ -28,8 +28,6 @@ from odoo.tools.profiler import profile
 
 _logger = logging.getLogger(__name__)
 
-glb_minio_client = None
-
 
 def oss_wrapper(raw_resp=True):
     """
@@ -74,9 +72,6 @@ class OSSInterface(models.AbstractModel):
     _description = "对象存储接口抽象类"
 
     def ensure_oss_client(self):
-        global glb_minio_client
-        if glb_minio_client:
-            return glb_minio_client
         ICP = self.env["ir.config_parameter"]
         endpoint = ICP.get_param("oss.endpoint", ENV_OSS_ENDPOINT)
         access_key = ICP.get_param("oss.access_key", ENV_OSS_ACCESS_KEY)
@@ -97,13 +92,7 @@ class OSSInterface(models.AbstractModel):
                 ),
             ),
         )
-        glb_minio_client = c
-        return glb_minio_client
-
-    @classmethod
-    def reset_global_minio_client(cls):
-        global glb_minio_client
-        glb_minio_client = None
+        return c
 
     # @profile
     def get_oss_objects(

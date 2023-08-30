@@ -84,7 +84,6 @@ class ResConfigSettings(models.TransientModel):
     def set_values(self):
         super(ResConfigSettings, self).set_values()
         oss_interface = self.env["onesphere.oss.interface"]
-        oss_interface.reset_global_minio_client()
         existed = oss_interface.bucket_exists(self.oss_bucket_name)
         if existed:
             oss_interface.set_lifecycle(self.oss_bucket_name, self.oss_expiration_days)
