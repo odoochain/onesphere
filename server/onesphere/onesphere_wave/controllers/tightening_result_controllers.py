@@ -74,7 +74,6 @@ def get_temp_file(
                 ret = df.to_csv(
                     path_or_buf=None,
                     index=False,
-                    columns=["cur_m", "cur_w", "cur_t"],
                     header=["扭矩", "角度", "时间"],
                 )
                 f.write(ret.encode(download_tightening_results_encode))

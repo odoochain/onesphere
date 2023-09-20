@@ -9,7 +9,6 @@ from datetime import datetime
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, ustr
 from script.constants import station_names, attribute_equipments, error_codes
 
-
 _logger = logging.getLogger(__name__)
 
 DATETIME_LENGTH = len(datetime.today().now().strftime(DEFAULT_SERVER_DATETIME_FORMAT))
@@ -51,7 +50,7 @@ G_TMPL = Template(
         </data>
 </odoo>
 """,
-    autoescape=True,
+    autoescape=False,
 )
 
 RECORD_TMPL = Template(
@@ -93,17 +92,26 @@ def gen_record_msg(*args, **kwargs):
     return r
 
 
-def get_step_result(results_str):
+def get_step_results(results_str):
     results = json.loads(results_str)
-    step_result_list = []
+    step_results = []
     for result in results:
-        step_result_list.append(
-            {
-                "measure_torque": round(result.get("measure_torque"), 2),
-                "measure_angle": round(result.get("measure_angle"), 2),
-            }
-        )
-    return step_result_list
+        step_result = []
+        for dim in ["torque", "angle"]:
+            step_result.append(
+                {
+                    "dimension": dim,
+                    "value": round(result.get(f"measure_{dim}", 0.0), 2),
+                    "spec": {
+                        "max": round(result.get(f"{dim}_max", 0.0), 2),
+                        "min": round(result.get(f"{dim}_min", 0.0), 2),
+                        "threshold": round(result.get(f"{dim}_threshold", 0.0), 2),
+                        "target": round(result.get(f"{dim}_target", 0.0), 2),
+                    },
+                }
+            )
+        step_results.append(step_result)
+    return step_results
 
 
 def get_feature_df():
@@ -187,7 +195,7 @@ if __name__ == "__main__":
         analysis_result_state = "ok" if tightening_result == "ok" else "nok"
         if curve in ("1644116132.json", "1644114233.json"):
             analysis_result_state = "nok"
-        step_results = json.dumps(get_step_result(data["step_results"][index]))
+        step_results = json.dumps(get_step_results(data["step_results"][index]))
         workcenter_code = random.choice(station_names)
         attribute_equipment_no = random.choice(attribute_equipments)
         feature_json, snug_data = get_feature_json(data["entity_id"][index])
