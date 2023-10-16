@@ -465,6 +465,11 @@ msgid "Operation"
 msgstr "作业"
 
 #. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mdm_maintenance_equipment_view_form_inherit
+msgid "Owner"
+msgstr "所有者"
+
+#. module: onesphere_mdm
 #: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
 msgid "Parent"
 msgstr "上级"
