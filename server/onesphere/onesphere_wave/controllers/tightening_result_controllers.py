@@ -46,9 +46,9 @@ def get_temp_file(
     entity_id_list,
 ):
     df = pd.DataFrame.from_records(result_list)
-    temp_file = tempfile.TemporaryFile()
+    temp_file = tempfile.NamedTemporaryFile(delete=False)
     oss_interface = env["onesphere.oss.interface"]
-    with zipfile.ZipFile(temp_file, "w", compression=zipfile.ZIP_DEFLATED) as zfp:
+    with zipfile.ZipFile(temp_file.name, "w", compression=zipfile.ZIP_DEFLATED) as zfp:
         if file_type == EXCEL_TYPE:
             df_style = df.style.applymap(style_apply, subset="拧紧结果")
             with zfp.open("tightening_results.xlsx", mode="w") as xlsx_f:

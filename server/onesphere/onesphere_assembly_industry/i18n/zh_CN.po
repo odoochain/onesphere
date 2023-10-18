@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-04 10:00+0000\n"
-"PO-Revision-Date: 2023-07-04 10:00+0000\n"
+"POT-Creation-Date: 2023-10-17 09:56+0000\n"
+"PO-Revision-Date: 2023-10-17 09:56+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -582,7 +582,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_wizard_tightening_result_report____last_update
 msgid "Last Modified on"
-msgstr "最后修改日"
+msgstr "最后更改日"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_multi_update_wizard__write_uid
@@ -793,7 +793,6 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_bolt__name
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point__name
-#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_work_step_tag__name
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_point_filter
 msgid "Name"
 msgstr "螺栓编号"
@@ -862,6 +861,11 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model:ir.model,name:onesphere_assembly_industry.model_onesphere_import_mixin
 msgid "Onesphere Import Mixin"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model:ir.actions.server,name:onesphere_assembly_industry.action_open_spc_analyze_view
+msgid "Open Spc Server Action"
 msgstr ""
 
 #. module: onesphere_assembly_industry
@@ -1192,9 +1196,9 @@ msgid "TWIN-CVI3"
 msgstr ""
 
 #. module: onesphere_assembly_industry
-#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_result__tag
-msgid "Tag"
-msgstr ""
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_result__tags
+msgid "Tags"
+msgstr "标签"
 
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.operation_import_mdm_form_view
@@ -1414,7 +1418,6 @@ msgid "Tightening Result Retention Policy"
 msgstr "拧紧结果保留策略"
 
 #. module: onesphere_assembly_industry
-#: model:ir.actions.act_window,name:onesphere_assembly_industry.action_tightening_result_spc_form
 #: model:ir.ui.menu,name:onesphere_assembly_industry.menu_assembly_tightening_result_spc
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_spc
 msgid "Tightening Result SPC"
