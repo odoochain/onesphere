@@ -19,5 +19,9 @@
             <field name="active" eval="False"/>
         </record>
 
+        <record id="onesphere_spc.onesphere_spc_root" model="ir.ui.menu">
+            <field name="active" eval="False"/>
+        </record>
+
     </data>
 </odoo>

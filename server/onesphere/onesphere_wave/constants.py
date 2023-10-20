@@ -23,3 +23,6 @@ ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE = os.getenv(
 ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT = int(
     os.getenv("ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT", "1000")
 )
+
+CURVE_KEYS_V1 = ["cur_m", "cur_w", "cur_t"]
+CURVE_KEYS_V2 = ["torque", "angle", "time"]

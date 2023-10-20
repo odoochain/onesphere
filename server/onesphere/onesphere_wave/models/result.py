@@ -13,6 +13,8 @@ from odoo.addons.onesphere_wave.constants import (
     EXCEL_TYPE,
     DOWNLOAD_ALL,
     ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT,
+    CURVE_KEYS_V1,
+    CURVE_KEYS_V2,
 )
 
 _wave_cache = LRU(max_size=128)
@@ -37,6 +39,19 @@ except ImportError:
     from odoo.models import Model as HModel
 
 
+def change_dict_keys(data: dict, old_keys: list, new_keys: list):
+    # 修改字典的key
+    if not data:
+        return
+    change_keys = zip(old_keys, new_keys)
+    for change_key in change_keys:
+        old_key, new_key = change_key[0], change_key[1]
+        if data.get(old_key) is None:
+            logger.error(f"没有{old_key}键值对，修改字典键失败")
+            continue
+        data[new_key] = data.pop(old_key)
+
+
 class OperationResult(HModel):
     _inherit = "onesphere.tightening.result"
 
@@ -51,7 +66,7 @@ class OperationResult(HModel):
         )
         if len(self) > download_tightening_results_limit:
             self.env.user.notify_warning(
-                f"曲线导出功能限制前{download_tightening_results_limit}条数据，将自动截取.或通过设置放大onesphere_wave.download_tightening_results_limit参数"
+                f"曲线导出功能限制前{download_tightening_results_limit}条数据，将自动截取，或通过设置放大onesphere_wave.download_tightening_results_limit参数。"
             )
             records = self[:download_tightening_results_limit]
         _ids = ",".join([str(_id) for _id in records.ids])
@@ -130,6 +145,8 @@ class OperationResult(HModel):
             # self.env.user.notify_warning(
             #     _('Query Result Data:0,Please Redefine Parameter Of Query or Wait For New Result'))
             return None, None
+        for curve in curve_datas:
+            change_dict_keys(curve, CURVE_KEYS_V2, CURVE_KEYS_V1)
         curves = json.dumps(curve_datas)
         wave_wizard_id = self.env["wave.compose.wave"].sudo().create({"wave": curves})
         if not wave_wizard_id:

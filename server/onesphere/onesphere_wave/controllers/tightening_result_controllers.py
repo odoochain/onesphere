@@ -125,6 +125,7 @@ def get_result_list(result_ids, download_curve=False, **kwargs):
 def get_temp_file_from_result(
     env, result_ids, platform="", scope=DOWNLOAD_ALL, file_type=EXCEL_TYPE
 ):
+    msg = ""
     ICP = env["ir.config_parameter"]
     download_tightening_results_limit = int(
         ICP.get_param(
@@ -133,8 +134,10 @@ def get_temp_file_from_result(
         )
     )
     if len(result_ids) > download_tightening_results_limit:
-        raise ValidationError(
-            f"曲线导出功能限制前{download_tightening_results_limit}条数据，将自动截取.或通过设置放大onesphere_wave.download_tightening_results_limit参数"
+        result_ids = result_ids[:download_tightening_results_limit]
+        msg = (
+            f"曲线导出功能限制前{download_tightening_results_limit}条数据，将自动截取，"
+            f"或通过设置放大onesphere_wave.download_tightening_results_limit参数。"
         )
     download_tightening_results_encode = ICP.get_param(
         "onesphere_wave.download_tightening_results_encode",
@@ -160,7 +163,7 @@ def get_temp_file_from_result(
         curve_file_list,
         entity_id_list,
     )
-    return temp_file
+    return temp_file, msg
 
 
 class OnesphereTighteningResultController(http.Controller):
@@ -183,7 +186,7 @@ class OnesphereTighteningResultController(http.Controller):
         )
         if not result_ids:
             raise ValidationError(_("No Tightening Result Found!"))
-        temp_file = get_temp_file_from_result(
+        temp_file, msg = get_temp_file_from_result(
             request.env, result_ids, platform, scope, file_type
         )
         res = send_file(

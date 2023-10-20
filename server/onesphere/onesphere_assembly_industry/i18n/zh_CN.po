@@ -782,7 +782,7 @@ msgstr "设备异常TOP5"
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.oneshare_assembly_maintenance_equipment_view_form_inherit
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_nok_trend_graph
 msgid "NOK Trend"
-msgstr "设备异常趋势"
+msgstr "异常趋势"
 
 #. module: onesphere_assembly_industry
 #: code:addons/onesphere_assembly_industry/models/maintenance.py:0

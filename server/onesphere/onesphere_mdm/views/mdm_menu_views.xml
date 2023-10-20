@@ -5,7 +5,7 @@
                 name="Master Data Management(MDM)"
                 web_icon="onesphere_mdm,static/description/icon.png"
                 groups="mrp.group_mrp_manager"
-                sequence="25"/>
+                sequence="200"/>
 
         <menuitem
                 id="oneshare_mom_menu_manufacturing_work_area"

@@ -178,7 +178,7 @@
             <field name="res_model">onesphere.tightening.result</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="onesphere_tightening_result_filter"/>
-            <field name="context">{"search_default_filter_ok": 1 }
+            <field name="context">{"search_default_filter_ok": 1, "search_default_this_week_filter": 2}
             </field>
             <field name="view_id" ref="onesphere_tightening_result_view_tree"/>
             <field name="help" type="html">
@@ -193,7 +193,7 @@
             <field name="res_model">onesphere.tightening.result</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="onesphere_tightening_result_filter"/>
-            <field name="context">{"search_default_filter_nok": 1,"search_default_group_by_error_code":2 }
+            <field name="context">{"search_default_filter_nok": 1,"search_default_group_by_error_code":2, "search_default_this_week_filter": 2 }
             </field>
             <field name="view_id" ref="onesphere_tightening_result_view_tree"/>
             <field name="help" type="html">
@@ -208,7 +208,7 @@
             <field name="res_model">onesphere.tightening.result</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="onesphere_tightening_result_filter"/>
-            <field name="context">{"search_default_filter_discharged": 1 }
+            <field name="context">{"search_default_filter_discharged": 1, "search_default_this_week_filter": 2 }
             </field>
             <field name="view_id" ref="onesphere_tightening_result_view_tree"/>
             <field name="help" type="html">
