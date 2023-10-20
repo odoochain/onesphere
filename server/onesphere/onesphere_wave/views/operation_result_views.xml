@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-        <record id="download_tightening_result_action_server" model="ir.actions.server">
-            <field name="name">Download Tightening Results</field>
-            <field name="model_id" ref="onesphere_assembly_industry.model_onesphere_tightening_result"/>
-            <field name="binding_model_id" ref="onesphere_assembly_industry.model_onesphere_tightening_result"/>
-            <field name="binding_view_types">list,form</field>
-            <field name="state">code</field>
-            <field name="code">
-                if records:
-                    action = records.download_tightening_results()
-            </field>
-        </record>
+    <record id="download_tightening_result_action_server" model="ir.actions.server">
+        <field name="name">Download Tightening Results</field>
+        <field name="model_id" ref="onesphere_assembly_industry.model_onesphere_tightening_result"/>
+        <field name="binding_model_id" ref="onesphere_assembly_industry.model_onesphere_tightening_result"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+            action = records.download_tightening_results('result')
+        </field>
+    </record>
+
+    <record id="download_tightening_result_curve_action_server" model="ir.actions.server">
+        <field name="name">Download Tightening Results &amp; Curves</field>
+        <field name="model_id" ref="onesphere_assembly_industry.model_onesphere_tightening_result"/>
+        <field name="binding_model_id" ref="onesphere_assembly_industry.model_onesphere_tightening_result"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+            action = records.download_tightening_results()
+        </field>
+    </record>
 
     <record id="operation_result_show_waveform" model="ir.actions.server">
         <field name="name">Show Curve</field>
@@ -42,8 +54,8 @@ if ret1 and ret2:
         <field name="arch" type="xml">
             <xpath expr="//field[last()]" position="after">
                 <button name="button_show_curves" string="Show Curve" type="object"
-                    icon="fa-exclamation-circle"
-                    class="btn btn-warning" groups="base.group_user"/>
+                        icon="fa-exclamation-circle"
+                        class="btn btn-warning" groups="base.group_user"/>
             </xpath>
         </field>
     </record>

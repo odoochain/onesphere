@@ -19,6 +19,8 @@ from odoo.addons.onesphere_wave.constants import (
     NOK_COLOR,
     OTHER_BG_COLOR,
     EXCEL_TYPE,
+    DOWNLOAD_ALL,
+    DOWNLOAD_RESULT_ONLY,
     ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE,
     ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT,
 )
@@ -81,7 +83,7 @@ def get_temp_file(
     return temp_file
 
 
-def get_result_list(result_ids, **kwargs):
+def get_result_list(result_ids, download_curve=False, **kwargs):
     result_list, curve_file_list, entity_id_list = [], [], []
     for result in result_ids:
         control_time = (
@@ -110,14 +112,19 @@ def get_result_list(result_ids, **kwargs):
             "拧紧人员": result.user_list or "",
         }
         result_list.append(ret)
-        curve_file_list.append(
-            json.loads(result.curve_file)[0].get("file") if result.curve_file else ""
-        )
+        if download_curve:
+            curve_file_list.append(
+                json.loads(result.curve_file)[0].get("file")
+                if result.curve_file
+                else ""
+            )
         entity_id_list.append(result.entity_id or "")
     return result_list, curve_file_list, entity_id_list
 
 
-def get_temp_file_from_result(env, result_ids, platform="", file_type=EXCEL_TYPE):
+def get_temp_file_from_result(
+    env, result_ids, platform="", scope=DOWNLOAD_ALL, file_type=EXCEL_TYPE
+):
     ICP = env["ir.config_parameter"]
     download_tightening_results_limit = int(
         ICP.get_param(
@@ -135,12 +142,15 @@ def get_temp_file_from_result(env, result_ids, platform="", file_type=EXCEL_TYPE
     )
     if platform and platform.upper() == "WINDOWS":
         download_tightening_results_encode = "gbk"  # GBK
+
+    scope_list = scope.split(",") or [DOWNLOAD_RESULT_ONLY]  # 至少下载拧紧结果
+    download_curve = "curve" in scope_list
     bucket_name = ICP.get_param("oss.bucket")
     (
         result_list,
         curve_file_list,
         entity_id_list,
-    ) = get_result_list(result_ids, file_type=file_type)
+    ) = get_result_list(result_ids, download_curve, file_type=file_type)
     temp_file = get_temp_file(
         env,
         bucket_name,
@@ -166,6 +176,7 @@ class OnesphereTighteningResultController(http.Controller):
         platform = request.httprequest.user_agent.platform
         record_ids_list = request.params.get("ids", "").split(",")
         file_type = request.params.get("file_type", EXCEL_TYPE)
+        scope = request.params.get("scope", DOWNLOAD_ALL)
         record_ids = [int(id) for id in record_ids_list]
         result_ids = request.env["onesphere.tightening.result"].search(
             [("id", "in", record_ids)]
@@ -173,7 +184,7 @@ class OnesphereTighteningResultController(http.Controller):
         if not result_ids:
             raise ValidationError(_("No Tightening Result Found!"))
         temp_file = get_temp_file_from_result(
-            request.env, result_ids, platform, file_type
+            request.env, result_ids, platform, scope, file_type
         )
         res = send_file(
             temp_file,

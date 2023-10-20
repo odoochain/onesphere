@@ -100,6 +100,8 @@ class OSSInterface(models.AbstractModel):
     ):
         # 获取minio数据
         data = {}
+        if not object_names:
+            return data
         client = self.ensure_oss_client()
         if len(object_names) <= ENV_MAX_WORKERS:
             data.update(

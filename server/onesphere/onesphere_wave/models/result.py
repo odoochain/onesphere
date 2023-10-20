@@ -11,6 +11,7 @@ from odoo.tools import ustr
 
 from odoo.addons.onesphere_wave.constants import (
     EXCEL_TYPE,
+    DOWNLOAD_ALL,
     ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT,
 )
 
@@ -39,7 +40,7 @@ except ImportError:
 class OperationResult(HModel):
     _inherit = "onesphere.tightening.result"
 
-    def download_tightening_results(self, file_type=EXCEL_TYPE):
+    def download_tightening_results(self, scope=DOWNLOAD_ALL, file_type=EXCEL_TYPE):
         records = self
         ICP = self.env["ir.config_parameter"].sudo()
         download_tightening_results_limit = int(
@@ -56,7 +57,7 @@ class OperationResult(HModel):
         _ids = ",".join([str(_id) for _id in records.ids])
         return {
             "type": "ir.actions.act_url",
-            "url": f"/oneshare/assembly/tightening/download?ids={_ids}&file_type={file_type}",
+            "url": f"/oneshare/assembly/tightening/download?ids={_ids}&file_type={file_type}&scope={scope}",
             "target": "self",
         }
 

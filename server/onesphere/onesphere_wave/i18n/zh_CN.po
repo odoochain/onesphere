@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-06 03:22+0000\n"
-"PO-Revision-Date: 2023-04-06 03:22+0000\n"
+"POT-Creation-Date: 2023-10-20 06:04+0000\n"
+"PO-Revision-Date: 2023-10-20 06:04+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -69,6 +69,11 @@ msgstr "下载拧紧结果数量上限"
 #: model:ir.actions.server,name:onesphere_wave.download_tightening_result_action_server
 msgid "Download Tightening Results"
 msgstr "下载拧紧结果"
+
+#. module: onesphere_wave
+#: model:ir.actions.server,name:onesphere_wave.download_tightening_result_curve_action_server
+msgid "Download Tightening Results & Curves"
+msgstr "下载拧紧结果和曲线"
 
 #. module: onesphere_wave
 #: code:addons/onesphere_wave/models/res_config_settings.py:0
